@@ -1,0 +1,30 @@
+This extension makes sure you'll stay on the .com pages for google.com and blogspot.com. This is done by adding the No Country Redirect (NCR) tag for those URLs. In other words it prevents you from automatically being redirected from google.com or blogspot.com to a country code top level domain (ccTLD) like 'google.jp', 'google.co.uk' or what have you got. The extension is an "unredirect solution", it completely stops or avoid redirects from google.com and blogspot.com. So there will be no more Google redirections if using this extension.
+
+You can disable / enable NCRifying domains in the extension's option page (new from version 0.6.1303). So if you want to visit a country code top level domain, like google.jp or google.de, in stead of google.com, you can disable NCR for google domains (same goes for blogspot domains).
+
+Note that this extension do not change your language preferences to English. If you want to change the language settings for Google products please go to: 
+https://www.google.com/settings/account?ref=srch
+(https://www.google.com/settings/language?ref=srch)
+
+
+
+*** SOURCE CODE ****
+The source code for this extension can be viewed at
+http://code.google.com/p/klevstul/source/browse/trunk/chromeExtensionDevelopment/NCR/NoCountryRedirect/
+
+
+
+*** REVISION HISTORY ***
+// 2013.03.26 : 0.6.1303 : frode klevstul : created options page for chosing what domains to NCRify
+// 2013.03.26 : 0.6.1303 : frode klevstul : ignoring google logout links (example: https://www.google.[cc]/accounts/Logout2)
+// 2013.03.26 : 0.6.1303 : frode klevstul : added support for maps.google.xx
+// 2012.08.21 : 0.5.1208 : frode klevstul : support for google.com.xx and blogspot.com.xx (example: google.com.ua) has been added
+// 2012.08.23 : 0.4.1208 : frode klevstul : blogspot subdomains containing dashes (like-this.blogspot.in) were not NCR'ified - now fixed
+// 2012.08.22 : 0.3.1208 : frode klevstul : optimised code using a tab's statusInfo
+// 2012.08.22 : 0.3.1208 : frode klevstul : main parts of the extension re-written to fix more bugs and clean up code
+// 2012.08.18 : 0.2.1208 : frode klevstul : found some regexp bug that got fixed
+// 2012.08.18 : 0.1.1208 : frode klevstul : had forgotten domains on the form .co.uk, .co.id (2x2 tld), so fixed that bug
+// 2012.08.18 : 0.1.1208 : frode klevstul : disabled the options page for this version, implemented new logos
+// 2012.08.17 : 0.1.1208 : frode klevstul : started developing an options page
+// 2012.08.16 : 0.1.1208 : frode klevstul : first working version ready for test
+// 2012.08.13 : 0.1.1208 : frode klevstul : development started

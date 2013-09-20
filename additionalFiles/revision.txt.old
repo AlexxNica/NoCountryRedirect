@@ -1,0 +1,23 @@
+/*
+
+// -------------------------------------------------------------------------------------------------------------------------------------
+// NoCountryRedirect (NCR)
+// 
+// author:	Frode Klevstul : www.watashi.no : ncrextension at klevstul dot com
+// started: 2012.08.13
+//
+// --- revision history below (descending order / newest at the top): ---
+// 2012.08.23 : 0.4.1208 : frode klevstul : blogspot subdomains containing dashes (like-this.blogspot.in) were not NCR'ified - now fixed
+// 2012.08.22 : 0.3.1208 : frode klevstul : optimised code using a tab's statusInfo
+// 2012.08.22 : 0.3.1208 : frode klevstul : main parts of the extension re-written to fix more bugs and clean up code
+// 2012.08.18 : 0.2.1208 : frode klevstul : found some regexp bug that got fixed
+// 2012.08.18 : 0.1.1208 : frode klevstul : had forgotten domains on the form .co.uk, .co.id (2x2 tld), so fixed that bug
+// 2012.08.18 : 0.1.1208 : frode klevstul : disabled the options page for this version, implemented new logos
+// 2012.08.17 : 0.1.1208 : frode klevstul : started developing an options page
+// 2012.08.16 : 0.1.1208 : frode klevstul : first working version ready for test
+// 2012.08.13 : 0.1.1208 : frode klevstul : development started
+// -------------------------------------------------------------------------------------------------------------------------------------
+
+*/
+
+

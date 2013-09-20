@@ -1,0 +1,32 @@
+<html>
+<head><title>NCR Options</title></head>
+<!--
+	author : Frode Klevstul : www.watashi.no : ncrextension at klevstul dot com
+
+	ref:
+		http://developer.chrome.com/trunk/extensions/options.html
+		http://developer.chrome.com/extensions/options.html
+-->
+
+<script type="text/javascript" src="options.js"></script>
+
+<body>
+	<pre>
+		DOMAINS TO NCRify:
+		Choose the domains that you want this extension to NCRify.
+
+		Example:
+		If you've set "blogspot.com" to be NCRify this extension will
+		always redirect you from country specific blogspot domains to
+		'.com' addresses. So if you type in 'test.blogspot.jp' you
+		will be taken to 'test.blogspot.com' in stead.
+
+		<input type="checkbox" id="checkbox_google" name="google" value="google" /> google.com
+		<input type="checkbox" id="checkbox_blogspot" name="blogspot" value="blogspot" /> blogspot.com
+
+		<span style="white-space: nowrap; background-color:yellow;" id="status"></span>
+
+		<button id="save">Save</button>
+	</pre>
+</body>
+</html>
