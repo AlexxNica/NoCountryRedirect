@@ -19,7 +19,9 @@
 //  http://cochinblogs-potpourri.blogspot.in/2012/03/google-has-given-in-to-political.html
 //  https://maps.google.no/maps/myplaces?ll=60.3976,5.3179&spn=0.020563,0.066047&ctz=-120&t=m&z=15
 //  https://www.google.no/accounts/Logout2?hl=en-GB&service=mail&ile=1&ils=s.NO&ilc=5&continue=https%3A%2F%2Faccounts.google.com%2FServiceLogin%3Fservice%3Dmail%26passive%3Dtrue%26rm%3Dfalse%26continue%3Dhttps%3A%2F%2Fmail.google.com%2Fmail%2F%26ss%3D1%26scc%3D1%26ltmpl%3Ddefault%26ltmplcache%3D2%26hl%3Den-GB&zx=-644258560
+//  https://maps.google.no
 //  https://www.google.no/maps/@59.9288516,10.7582299,15z
+//  http://books.google.no/
 //
 // -- nifty things to remember:
 //  debug("tab.url = " + tab.url);      // alternative: encodeURIComponent(tab.url);
@@ -61,7 +63,7 @@ if ( localStorage["ncr_checkbox_blogspot"] === undefined ){
 // note that "regExpUrlsToCheck[i]" must be for the same domain as "urlsToCheck[i]" (the same order)
 // -----
 var regExpUrlsToCheck = new Array();
-regExpUrlsToCheck[0] = new RegExp("^http(s)?://(maps.|www.)?google.\\w{2,3}(.\\w{2,3})?/", "i");                                            // google domains
+regExpUrlsToCheck[0] = new RegExp("^http(s)?://(books.|maps.|www.)?google.\\w{2,3}(.\\w{2,3})?/", "i");                                            // google domains
 regExpUrlsToCheck[1] = new RegExp("^http(s)?://([a-z0-9\\-]{1,40}.)?blogspot.\\w{2,3}(.\\w{2,3})?/", "i");                                  // blogspot domains
 
 var urlsToCheck = new Array();
@@ -124,7 +126,7 @@ debug("tab.url : " +tab.url);
     // -----
     var newUrl;
     var tldCcRegexp         = /\.\w{2,3}(\.\w{2,3})?\//;                                                                                    // regular expression that represents a country specific tld plus a slash (like '.jp/' or '.no/' or '.co.uk') - note that all URLs given by tab.url will end with a slash.
-    var googleRegExp        = new RegExp("^http(s)?://(maps.|www.)?google.\\w{2,3}(.\\w{2,3})?/$", "i");
+    var googleRegExp        = new RegExp("^http(s)?://(books.|maps.|www.)?google.\\w{2,3}(.\\w{2,3})?/$", "i");
     var ncrComRegExp        = new RegExp("^http(s)?://([a-z0-9\\-]{1,40}.)?(google|blogspot).com(/ncr)?/", "i");
     var googleLogoutRegExp  = new RegExp("^http(s)?://(www.)?google.\\w{2,3}(.\\w{2,3})?/accounts/Logout");
 
@@ -145,11 +147,11 @@ debug("tab.url : " +tab.url);
                 if ( urlsToCheck[i].match("google") && checkGoogle ){                                                                       // google url
                     debug("google url");
 
-                    if ( newUrl.match(googleRegExp)){
+                    if ( newUrl.match(googleRegExp) && !newUrl.match("books.") ){
                         debug("google url - short type");
                         newUrl = newUrl.replace(tldCcRegexp, ".com/ncr");                                                                   // if nothing is after "google.com/"
                     } else {
-                        debug("google url - long type");
+                        debug("google url - long type or books.google.com");
                         newUrl = newUrl.replace(tldCcRegexp, ".com/");                                                                      // if URL is longer, like "google.com/?hl=en&...."
                     }
 
