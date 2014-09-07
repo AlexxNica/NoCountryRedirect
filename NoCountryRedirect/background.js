@@ -57,6 +57,15 @@ if ( localStorage["ncr_checkbox_google"] === undefined ){
 if ( localStorage["ncr_checkbox_blogspot"] === undefined ){
     localStorage["ncr_checkbox_blogspot"] = "true";
 }
+if ( localStorage["ncr_whitelist_1"] === undefined ){
+    localStorage["ncr_whitelist_1"] = "";
+}
+if ( localStorage["ncr_whitelist_2"] === undefined ){
+    localStorage["ncr_whitelist_2"] = "";
+}
+if ( localStorage["ncr_whitelist_3"] === undefined ){
+    localStorage["ncr_whitelist_3"] = "";
+}
 
 // -----
 // build an array with regular expressions and URLs that are to be checked and NCR'ified if possible
@@ -96,6 +105,18 @@ debug("tab.url : " +tab.url);
     if ( tab.url.match(ncrComRegExp) ){                                                                                                     // if the url is on ncr format ...
         debug("show page action for URL : " + tab.url);
         chrome.pageAction.show(tabId);                                                                                                      // show the page action (the NCR icon)
+    }
+
+    // -----
+    // stop the extension if the url matches a whitelist entry made by the user
+    // -----
+    if (
+               (tab.url.match(localStorage["ncr_whitelist_1"]) && localStorage["ncr_whitelist_1"] !== "")
+            || (tab.url.match(localStorage["ncr_whitelist_2"]) && localStorage["ncr_whitelist_2"] !== "")
+            || (tab.url.match(localStorage["ncr_whitelist_3"]) && localStorage["ncr_whitelist_3"] !== "")
+        ){
+        debug("STOP : tab.url matches whitelist : " +localStorage["ncr_whitelist_1"]+ " : " +localStorage["ncr_whitelist_2"]+ " : " +localStorage["ncr_whitelist_3"]);
+        return;
     }
 
     // -----

@@ -11,11 +11,11 @@ https://www.google.com/settings/account?ref=srch
 *** SOURCE CODE ****
 The source code for this extension can be viewed at
 https://github.com/klevstul/NoCountryRedirect
-http://code.google.com/p/klevstul/source/browse/trunk/chromeExtensionDevelopment/NCR/NoCountryRedirect/
 
 
 
 *** REVISION HISTORY ***
+// 2014.09.07 : 0.7.1409 : frode klevstul : added whitelisting functionality (NCR-9)
 // 2014.09.07 : 0.7.1409 : frode klevstul : introduced code to prevent endless loops (NCR-6)
 // 2014.09.07 : 0.7.1409 : frode klevstul : added support for domains on the format www.etvanligliv.blogspot.no (NCR-3)
 // 2014.09.07 : 0.7.1409 : frode klevstul : added support for books.google.tld (NCR-1)
