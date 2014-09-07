@@ -1,32 +1,32 @@
 <html>
 <head><title>NCR Options</title></head>
 <!--
-	author : Frode Klevstul : www.watashi.no : ncrextension at klevstul dot com
+    author : Frode Klevstul : www.watashi.no : ncrextension at klevstul dot com
 
-	ref:
-		http://developer.chrome.com/trunk/extensions/options.html
-		http://developer.chrome.com/extensions/options.html
+    ref:
+        http://developer.chrome.com/trunk/extensions/options.html
+        http://developer.chrome.com/extensions/options.html
 -->
 
 <script type="text/javascript" src="options.js"></script>
 
 <body>
-	<pre>
-		DOMAINS TO NCRify:
-		Choose the domain(s) that you want to NCRify.
+    <pre>
+        DOMAINS TO NCRify:
+        Choose the domain(s) that you want to NCRify.
 
-		Example:
-		If you set "blogspot.com" to be NCRified, this extension will
-		always redirect you from country specific blogspot domains to
+        Example:
+        If you set "blogspot.com" to be NCRified, this extension will
+        always redirect you from country specific blogspot domains to
         '.com' addresses. Hence, if you type 'test.blogspot.jp' you
-		will be redirected to 'test.blogspot.com'.
+        will be redirected to 'test.blogspot.com'.
 
-		<input type="checkbox" id="checkbox_google" name="google" value="google" /> google.com
-		<input type="checkbox" id="checkbox_blogspot" name="blogspot" value="blogspot" /> blogspot.com
+        <input type="checkbox" id="ncr_checkbox_google" name="google" value="google" /> google.com
+        <input type="checkbox" id="ncr_checkbox_blogspot" name="blogspot" value="blogspot" /> blogspot.com
 
-		<span style="white-space: nowrap; background-color:yellow;" id="status"></span>
+        <span style="white-space: nowrap; background-color:yellow;" id="status"></span>
 
-		<button id="save">Save</button>
-	</pre>
+        <button id="save">Save</button>
+    </pre>
 </body>
 </html>

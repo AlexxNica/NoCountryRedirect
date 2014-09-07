@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------
-// file:	options.js
-// what:	JavaScript code for the options page
+// file:    options.js
+// what:    JavaScript code for the options page
 // started: 2012.08.xx (first version finished 2013.03.27)
 // -----------------------------------------------------------------
 
@@ -9,11 +9,11 @@
 // simple function that prints debugging messages
 // -----
 function debug(message){
-	var doDebug = false;
+    var doDebug = false;
 
-	if (doDebug){
-		console.log("DEBUG : " + message);
-	}
+    if (doDebug){
+        console.log("DEBUG : " + message);
+    }
 }
 
 
@@ -21,13 +21,13 @@ function debug(message){
 // restores saved options from local storage
 // -----
 function restoreOptions(){
-	debug("restoreOptions()");
+    debug("restoreOptions()");
 
-	var checkbox_google			= document.getElementById("checkbox_google");
-	var checkbox_blogspot		= document.getElementById("checkbox_blogspot");
+    var ncr_checkbox_google         = document.getElementById("ncr_checkbox_google");
+    var ncr_checkbox_blogspot       = document.getElementById("ncr_checkbox_blogspot");
 
-	checkbox_google.checked		= (localStorage["checkbox_google"] == "true");
-	checkbox_blogspot.checked	= (localStorage["checkbox_blogspot"] == "true");
+    ncr_checkbox_google.checked     = (localStorage["ncr_checkbox_google"] == "true");
+    ncr_checkbox_blogspot.checked   = (localStorage["ncr_checkbox_blogspot"] == "true");
 }
 
 
@@ -35,20 +35,20 @@ function restoreOptions(){
 // when user clicks save...
 // -----
 function clickSave(){
-	debug("clickSave()");
+    debug("clickSave()");
 
-	var status = document.getElementById("status");
+    var status = document.getElementById("status");
 
-	status.innerHTML = "Options are saved!";
+    status.innerHTML = "Options are saved!";
 
-	var checkbox_google		= document.getElementById("checkbox_google");
-	var checkbox_blogspot	= document.getElementById("checkbox_blogspot");
+    var ncr_checkbox_google     = document.getElementById("ncr_checkbox_google");
+    var ncr_checkbox_blogspot   = document.getElementById("ncr_checkbox_blogspot");
 
-	localStorage["checkbox_google"]		= checkbox_google.checked;
-	localStorage["checkbox_blogspot"]	= checkbox_blogspot.checked;
+    localStorage["ncr_checkbox_google"]     = ncr_checkbox_google.checked;
+    localStorage["ncr_checkbox_blogspot"]   = ncr_checkbox_blogspot.checked;
 
-	debug("checkbox_google = " + localStorage["checkbox_google"] );
-	debug("checkbox_blogspot = " + localStorage["checkbox_blogspot"] );
+    debug("ncr_checkbox_google = " + localStorage["ncr_checkbox_google"] );
+    debug("ncr_checkbox_blogspot = " + localStorage["ncr_checkbox_blogspot"] );
 }
 
 
@@ -56,10 +56,10 @@ function clickSave(){
 // sets a flag to inform saving is needed
 // -----
 function needToSave(){
-	debug("needToSave()");
+    debug("needToSave()");
 
-	var status = document.getElementById("status");
-	status.innerHTML = "Click 'Save' to apply changes!";
+    var status = document.getElementById("status");
+    status.innerHTML = "Click 'Save' to apply changes!";
 }
 
 
@@ -68,14 +68,14 @@ function needToSave(){
 // -----
 window.addEventListener("load", function()
 {
-	restoreOptions();
+    restoreOptions();
 
-	document.getElementById("checkbox_google")
-		.addEventListener("click", needToSave, false);
-	
-	document.getElementById("checkbox_blogspot")
-		.addEventListener("click", needToSave, false);
-	
-	document.getElementById("save")
-		.addEventListener("click", clickSave, false);
+    document.getElementById("ncr_checkbox_google")
+        .addEventListener("click", needToSave, false);
+
+    document.getElementById("ncr_checkbox_blogspot")
+        .addEventListener("click", needToSave, false);
+
+    document.getElementById("save")
+        .addEventListener("click", clickSave, false);
 }, false);
