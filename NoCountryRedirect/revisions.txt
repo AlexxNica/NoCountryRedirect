@@ -17,6 +17,7 @@ http://code.google.com/p/klevstul/source/browse/trunk/chromeExtensionDevelopment
 
 *** REVISION HISTORY ***
 // 2014.09.07 : 0.7.1409 : frode klevstul : introduced code to prevent endless loops (NCR-6)
+// 2014.09.07 : 0.7.1409 : frode klevstul : added support for domains on the format www.etvanligliv.blogspot.no (NCR-3)
 // 2014.09.07 : 0.7.1409 : frode klevstul : added support for books.google.tld (NCR-1)
 // 2013.03.26 : 0.6.1303 : frode klevstul : created options page for chosing what domains to NCRify
 // 2013.03.26 : 0.6.1303 : frode klevstul : ignoring google logout links (example: https://www.google.[cc]/accounts/Logout2)
