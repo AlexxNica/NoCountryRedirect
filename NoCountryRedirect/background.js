@@ -83,9 +83,22 @@ urlsToCheck[1] = "blogspot";
 // main function that checks URLs, and NCR'ifies those URLs who are to be NCR'ified
 // -----
 function urlCheck(tabId, changeInfo, tab) {
-debug("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
-debug("tabId : " + tabId);
-debug("tab.url : " +tab.url);
+    // -----
+    // never underestimate debug info
+    // -----
+    debug("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
+    debug("tabId : " + tabId);
+    debug("tab.url : " +tab.url);
+
+    // -----
+    // declarations
+    // -----
+    var newUrl;
+    var tldCcRegexp         = /\.\w{2,3}(\.\w{2,3})?\//;                                                                                    // regular expression that represents a country specific tld plus a slash (like '.jp/' or '.no/' or '.co.uk') - note that all URLs given by tab.url will end with a slash.
+    var googleRegExp        = new RegExp("^http(s)?://(books.|maps.|www.)?google.\\w{2,3}(.\\w{2,3})?/$", "i");
+    var ncrComRegExp        = new RegExp("^http(s)?://([a-z0-9\\-]{1,40}.)?([a-z0-9\\-]{1,40}.)?(google|blogspot).com(/ncr)?/", "i");
+    var googleLogoutRegExp  = new RegExp("^http(s)?://(www.)?google.\\w{2,3}(.\\w{2,3})?/accounts/Logout");
+
 
     // initialise local storage for storing tab data. two keys for each tab.
     if ( localStorage["ncr_tab" + tab.id + "_url"] === undefined ){
@@ -95,12 +108,15 @@ debug("tab.url : " +tab.url);
         localStorage["ncr_tab" + tab.id + "_reloads"] = 0;
     }
 
+    // -----
+    // more details for debugging
+    // -----
     debug("ncr_tab"+ tab.id +"_url : " +localStorage["ncr_tab" + tab.id + "_url"]);
     debug("ncr_tab"+ tab.id +"_reloads : " +localStorage["ncr_tab" + tab.id + "_reloads"]);
     debug("changeInfo.status : " + changeInfo.status);
 
     // -----
-    // add NCR icon
+    // add NCR icon?
     // ------
     if ( tab.url.match(ncrComRegExp) ){                                                                                                     // if the url is on ncr format ...
         debug("show page action for URL : " + tab.url);
@@ -141,15 +157,6 @@ debug("tab.url : " +tab.url);
     // -----
     checkGoogle     = (localStorage["ncr_checkbox_google"] === "true");
     checkBlogspot   = (localStorage["ncr_checkbox_blogspot"] === "true");
-
-    // -----
-    // declarations
-    // -----
-    var newUrl;
-    var tldCcRegexp         = /\.\w{2,3}(\.\w{2,3})?\//;                                                                                    // regular expression that represents a country specific tld plus a slash (like '.jp/' or '.no/' or '.co.uk') - note that all URLs given by tab.url will end with a slash.
-    var googleRegExp        = new RegExp("^http(s)?://(books.|maps.|www.)?google.\\w{2,3}(.\\w{2,3})?/$", "i");
-    var ncrComRegExp        = new RegExp("^http(s)?://([a-z0-9\\-]{1,40}.)?([a-z0-9\\-]{1,40}.)?(google|blogspot).com(/ncr)?/", "i");
-    var googleLogoutRegExp  = new RegExp("^http(s)?://(www.)?google.\\w{2,3}(.\\w{2,3})?/accounts/Logout");
 
     debug("urlCheck(\""+tab.url+"\")");
 
