@@ -33,7 +33,7 @@
 // simple function that prints debugging messages
 // -----
 function debug(message){
-    var doDebug = true;                                                                                                                     // if 'true' then print message, if 'false' do not
+    var doDebug = false;                                                                                                                     // if 'true' then print message, if 'false' do not
 
     if (doDebug){
         console.log("DEBUG : " + message);
