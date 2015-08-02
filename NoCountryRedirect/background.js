@@ -21,7 +21,9 @@
 //  https://maps.google.no/maps/myplaces?ll=60.3976,5.3179&spn=0.020563,0.066047&ctz=-120&t=m&z=15
 //  https://www.google.no/accounts/Logout2?hl=en-GB&service=mail&ile=1&ils=s.NO&ilc=5&continue=https%3A%2F%2Faccounts.google.com%2FServiceLogin%3Fservice%3Dmail%26passive%3Dtrue%26rm%3Dfalse%26continue%3Dhttps%3A%2F%2Fmail.google.com%2Fmail%2F%26ss%3D1%26scc%3D1%26ltmpl%3Ddefault%26ltmplcache%3D2%26hl%3Den-GB&zx=-644258560
 //  https://maps.google.no
+//  https://maps.google.com
 //  https://www.google.no/maps/@59.9288516,10.7582299,15z
+//  https://www.google.no/maps?source=tldsi&hl=en&hl=en
 //  http://books.google.no/
 //
 // -- nifty things to remember:
@@ -29,26 +31,25 @@
 //  debug("tab.title = " + tab.title);  // alternative: encodeURIComponent(tab.title)
 // -----------------------------------------------------------------
 
-// -----
+// config variables
+var number_of_redirects_before_exit     = 3;                                                                                                // the number of redirects that is tried, before giving up on "NCR'ifying" an url
+var number_of_milliseconds_before_reset = 10000;                                                                                             // local storage for a tab is reset after this many milliseconds
+var tab_status_to_work_with             = "loading";                                                                                        // tab status is either 'undefined', 'loading' or 'complete'
+
 // simple function that prints debugging messages
-// -----
-function debug(message){
-    var doDebug = false;                                                                                                                     // if 'true' then print message, if 'false' do not
+function debug(message, status){
+    var doDebug = true;                                                                                                                     // if 'true' then print message, if 'false' do not
 
     if (doDebug){
-        console.log("DEBUG : " + message);
+        if (status === tab_status_to_work_with){                                                                                            // to minimise output when debugging, we can ignore some tab statuses
+            console.log("DEBUG : " + message);
+        }
     }
 }
 
-// -----
 // printing some debugging info, doing some declarations and initialisations of some variables
-// -----
-debug("NoCountryRedirect - background.js");                                                                                                 // Hello, World!
-debug("NCRify options : [google=" + localStorage["ncr_checkbox_google"] + " | blogspot=" + localStorage["ncr_checkbox_blogspot"] + "]");
-
-// variables that holds info that defines if domain is to be checked or not
-var checkGoogle;
-var checkBlogspot;
+debug("NoCountryRedirect - background.js", tab_status_to_work_with);                                                                        // Hello, World!
+debug("NCRify options : [google=" + localStorage["ncr_checkbox_google"] + " | blogspot=" + localStorage["ncr_checkbox_blogspot"] + "]", tab_status_to_work_with);
 
 // initialises local storage for user inputs, in case they are undefined
 if ( localStorage["ncr_checkbox_google"] === undefined ){
@@ -67,88 +68,93 @@ if ( localStorage["ncr_whitelist_3"] === undefined ){
     localStorage["ncr_whitelist_3"] = "";
 }
 
-// -----
 // build an array with regular expressions and URLs that are to be checked and NCR'ified if possible
 // note that "regExpUrlsToCheck[i]" must be for the same domain as "urlsToCheck[i]" (the same order)
-// -----
-var regExpUrlsToCheck = new Array();
-regExpUrlsToCheck[0] = new RegExp("^http(s)?://(books.|maps.|www.)?google.\\w{2,3}(.\\w{2,3})?/", "i");                                            // google domains
-regExpUrlsToCheck[1] = new RegExp("^http(s)?://([a-z0-9\\-]{1,40}.)?([a-z0-9\\-]{1,40}.)?blogspot.\\w{2,3}(.\\w{2,3})?/", "i");                    // blogspot domains (including domains on the format "http://www.etvanligliv.blogspot.no/")
+var regExpUrlsToCheck   = new Array();
+regExpUrlsToCheck[0]    = new RegExp("^http(s)?://(books.|maps.|www.)?google.\\w{2,3}(.\\w{2,3})?/", "i");                                  // google domains
+regExpUrlsToCheck[1]    = new RegExp("^http(s)?://([a-z0-9\\-]{1,40}.)?([a-z0-9\\-]{1,40}.)?blogspot.\\w{2,3}(.\\w{2,3})?/", "i");          // blogspot domains (including domains on the format "http://www.etvanligliv.blogspot.no/")
 
-var urlsToCheck = new Array();
-urlsToCheck[0] = "google";
-urlsToCheck[1] = "blogspot";
+var urlsToCheck         = new Array();
+urlsToCheck[0]          = "google";
+urlsToCheck[1]          = "blogspot";
 
 // -----
 // main function that checks URLs, and NCR'ifies those URLs who are to be NCR'ified
 // -----
 function urlCheck(tabId, changeInfo, tab) {
-    // -----
-    // never underestimate debug info
-    // -----
-    debug("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
-    debug("tabId : " + tabId);
-    debug("tab.url : " +tab.url);
+    debug("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -", changeInfo.status);
+    debug("tabId : " + tabId, changeInfo.status);
+    debug("tab.url : " +tab.url, changeInfo.status);
+    debug("changeInfo.status : " + changeInfo.status, changeInfo.status);
 
-    // -----
     // declarations
-    // -----
     var newUrl;
     var tldCcRegexp         = /\.\w{2,3}(\.\w{2,3})?\//;                                                                                    // regular expression that represents a country specific tld plus a slash (like '.jp/' or '.no/' or '.co.uk') - note that all URLs given by tab.url will end with a slash.
     var googleRegExp        = new RegExp("^http(s)?://(books.|maps.|www.)?google.\\w{2,3}(.\\w{2,3})?/$", "i");
     var ncrComRegExp        = new RegExp("^http(s)?://([a-z0-9\\-]{1,40}.)?([a-z0-9\\-]{1,40}.)?(google|blogspot).com(/ncr)?/", "i");
     var googleLogoutRegExp  = new RegExp("^http(s)?://(www.)?google.\\w{2,3}(.\\w{2,3})?/accounts/Logout");
+    var chromeExtRegExp     = new RegExp("^chrome");
+    var i;
+    var checkGoogle;
+    var checkBlogspot;
 
-
-    // initialise local storage for storing tab data. two keys for each tab.
-    if ( localStorage["ncr_tab" + tab.id + "_url"] === undefined ){
-        localStorage["ncr_tab" + tab.id + "_url"] = "new";
-    }
-    if ( localStorage["ncr_tab" + tab.id + "_reloads"] === undefined ){
-        localStorage["ncr_tab" + tab.id + "_reloads"] = 0;
-    }
-
+    // ----- ---------------------------------------------------------------------------------------------
+    // misc checks which in certain cases will stop the extension (return without doing anything)
     // -----
-    // more details for debugging
-    // -----
-    debug("ncr_tab"+ tab.id +"_url : " +localStorage["ncr_tab" + tab.id + "_url"]);
-    debug("ncr_tab"+ tab.id +"_reloads : " +localStorage["ncr_tab" + tab.id + "_reloads"]);
-    debug("changeInfo.status : " + changeInfo.status);
 
-    // -----
-    // add NCR icon?
-    // ------
-    if ( tab.url.match(ncrComRegExp) ){                                                                                                     // if the url is on ncr format ...
-        debug("show page action for URL : " + tab.url);
-        chrome.pageAction.show(tabId);                                                                                                      // show the page action (the NCR icon)
+    // checks to avoid all the code being run every time the "onUpdated" event is triggered, which is more often than just reloads
+    // changeInfo is either 'undefined', 'loading' or 'complete'
+    if (changeInfo.status !== tab_status_to_work_with){
+        debug("STOP : changeInfo.status differs to '"+tab_status_to_work_with+"'", changeInfo.status);
+        return;
     }
 
-    // -----
+    // stop the extension if the tab is a chrome settings page, instead of a normal web page
+    if ( tab.url.match(chromeExtRegExp) ){
+        debug("STOP : we have a chrome settings page", changeInfo.status);
+        return;
+    }
+
     // stop the extension if the url matches a whitelist entry made by the user
-    // -----
     if (
                (tab.url.match(localStorage["ncr_whitelist_1"]) && localStorage["ncr_whitelist_1"] !== "")
             || (tab.url.match(localStorage["ncr_whitelist_2"]) && localStorage["ncr_whitelist_2"] !== "")
             || (tab.url.match(localStorage["ncr_whitelist_3"]) && localStorage["ncr_whitelist_3"] !== "")
         ){
-        debug("STOP : tab.url matches whitelist : " +localStorage["ncr_whitelist_1"]+ " : " +localStorage["ncr_whitelist_2"]+ " : " +localStorage["ncr_whitelist_3"]);
+        debug("STOP : tab.url matches whitelist : " +localStorage["ncr_whitelist_1"]+ " : " +localStorage["ncr_whitelist_2"]+ " : " +localStorage["ncr_whitelist_3"], changeInfo.status);
         return;
     }
 
     // -----
-    // checks to avoid all the code being run every time the "onUpdated" event is triggered, which is more often than just reloads
-    // -----
-    // changeInfo is either "undefined", "loading" or "complete", it is only interesting manipulating the url when loading...
-    if (changeInfo.status === "complete" || changeInfo.status === undefined){
-        debug("STOP : changeInfo.status differs to 'loading'");
+    // / end of stop checks
+    // ----- ---------------------------------------------------------------------------------------------
+
+    // initialise timestamp for tab
+    if ( localStorage["ncr_tab" + tab.id + "_timestamp"] === undefined ){
+        localStorage["ncr_tab" + tab.id + "_timestamp"] = Date.now();                                                                       // The now() method returns the milliseconds elapsed since 1 January 1970 00:00:00 UTC up until now as a Number. ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now
+    }
+
+    // if there are more than x seconds since stored timestamp, we can assume it is the user changing the url (typing, clicking a link etc.)
+    // and hence we delete stored data for this tab, and start checking "over again"
+    if ( localStorage["ncr_tab" + tab.id + "_timestamp"] < Date.now() - number_of_milliseconds_before_reset ){
+        debug("deleting stored tab data, due to time delay");
+        localStorage["ncr_tab" + tab.id + "_timestamp"] = Date.now();                                                                       // reset timestamp
+        localStorage.removeItem("ncr_tab" + tab.id + "_break");                                                                             // delete breaks, if any...
+        for (i = 1; i <= number_of_redirects_before_exit; i=i+1){                                                                           // delete urls
+            localStorage.removeItem("ncr_tab" + tab.id + "_url_" + i);
+        }
+    }
+
+    // additional stop check, done after an eventually reset of local data, for avoiding an always stopped tab
+    if (localStorage["ncr_tab" + tab.id + "_break"]) {
+        debug("STOP : we have a break stored for current tab!", changeInfo.status);
         return;
     }
 
-    // if the url for the tab equals the url stored  we need to stop / return, for preventing an endless loop
-    if (tab.url === localStorage["ncr_tab" + tab.id + "_url"]){
-        debug("STOP : tab.url ===  ncr_tab" + tab.id + "_url");
-        localStorage["ncr_tab" + tab.id + "_reloads"] = 0;                                                                                  // set reload count to be 0, this is needed for triggering processing of new urls for this tab that user might type in
-        return;
+    // add NCR icon?
+    if ( tab.url.match(ncrComRegExp) ){                                                                                                     // if the url is on ncr format ...
+        debug("show page action for URL : " + tab.url, changeInfo.status);
+        chrome.pageAction.show(tabId);                                                                                                      // show the page action (the NCR icon)
     }
 
     // -----
@@ -158,67 +164,94 @@ function urlCheck(tabId, changeInfo, tab) {
     checkGoogle     = (localStorage["ncr_checkbox_google"] === "true");
     checkBlogspot   = (localStorage["ncr_checkbox_blogspot"] === "true");
 
-    debug("urlCheck(\""+tab.url+"\")");
+    debug("urlCheck(\""+tab.url+"\")", changeInfo.status);
 
     // -----
     // we only want to process with the URL as long at is not an already .com URL
     // and if it is not a country specific google logout link
     // -----
     if ( !(tab.url.match(ncrComRegExp)) && !(tab.url.match(googleLogoutRegExp)) ){
-        for(var i = 0; i < regExpUrlsToCheck.length; i++) {                                                                                 // loop through all URLs to check
-            debug("regExpUrlsToCheck["+i+"] = " + regExpUrlsToCheck[i]);
+        for(i = 0; i < regExpUrlsToCheck.length; i++) {                                                                                     // loop through all URLs to check
+            debug("regExpUrlsToCheck["+i+"] = " + regExpUrlsToCheck[i], changeInfo.status);
 
             if ( (tab.url.match(regExpUrlsToCheck[i])) ){                                                                                   // if we find the pattern given in our regExpUrlsToCheck
-                debug("tab.url (\"" + tab.url + "\") matching regExpUrlsToCheck["+i+"] ("+ regExpUrlsToCheck[i] +")");
+                debug("tab.url (\"" + tab.url + "\") matching regExpUrlsToCheck["+i+"] ("+ regExpUrlsToCheck[i] +")", changeInfo.status);
                 newUrl = tab.url;
 
                 if ( urlsToCheck[i].match("google") && checkGoogle ){                                                                       // google url
-                    debug("google url");
+                    debug("google url", changeInfo.status);
 
                     if ( newUrl.match(googleRegExp) && !newUrl.match("books.") ){
-                        debug("google url - short type");
+                        debug("google url - short type", changeInfo.status);
                         newUrl = newUrl.replace(tldCcRegexp, ".com/ncr");                                                                   // if nothing is after "google.com/"
                     } else {
-                        debug("google url - long type or books.google.com");
+                        debug("google url - long type", changeInfo.status);
                         newUrl = newUrl.replace(tldCcRegexp, ".com/");                                                                      // if URL is longer, like "google.com/?hl=en&...."
                     }
 
                 } else if ( urlsToCheck[i].match("blogspot") && checkBlogspot ) {                                                           // blogspot url
-                    debug("blogspot url");
+                    debug("blogspot url", changeInfo.status);
                     newUrl = newUrl.replace(tldCcRegexp, ".com/ncr/");
                 } else {                                                                                                                    // normally we're here if we user has set NCRify options on domain to 'false'
-                    debug("NCRify is off for given domain (or we have a dead moth in the system)");
+                    debug("NCRify is off for given domain (or we have a dead moth in the system)", changeInfo.status);
                     break;
                 }
 
-                debug("newUrl : " + newUrl);                                                                                                // the new NCRified url
+                debug("newUrl : " + newUrl, changeInfo.status);                                                                             // the new NCRified url
 
-                if ( localStorage["ncr_tab" + tab.id + "_reloads"] < 1 ) {                                                                  // this line avoids endless loops, as we only try to change url X number of times
-                    debug("reload tab with new url");
-                    localStorage["ncr_tab" + tab.id + "_url"] = newUrl;                                                                     // store the new url
-                    localStorage["ncr_tab" + tab.id + "_reloads"] = Number(localStorage["ncr_tab" + tab.id + "_reloads"]) + 1;              // keep track of how many reloads that has been done
-                    chrome.tabs.update(tab.id, {url: newUrl});                                                                              // update tab URL - which will force a reload of the tab
-                    break;                                                                                                                  // no point looping any longer, hence we break the loop
-                } else {                                                                                                                    // else we have reloaded too many times...
-                    debug("ERROR : unable to change url, we give up!");
-                    localStorage["ncr_tab" + tab.id + "_url"]       = tab.url;                                                              // storing the old url (not the new NCRified one), which will prevent trying to ncrify the given url again
-                    localStorage["ncr_tab" + tab.id + "_reloads"]   = 0;                                                                    // resetting the reload number, as the url can be changed in the tab by a user, and a new url should be processed
-                    break;
+
+                // this part of the code prevents endless redirects (maps.google.com is a problematic url)
+                // "number_of_redirects_before_exit" - this is the number of times we run the "for loop", where we store urls, so for example, if this number is 2, we store two urls for the tab.
+                // when we store a url, we set "url_stored" to be true. so, in case we went from 1 till "number_of_redirects_before_exit", without finding any space for storing the new
+                // url, then "url_stored" will be false when we exit the for loop as well. in this case we know we have a problem, so we can stop
+                var url_stored = false;
+                for (i = 1; i <= number_of_redirects_before_exit; i=i+1){
+                    // if local storage for url #i is not used, we save the url...
+                    if (localStorage["ncr_tab" + tab.id + "_url_" + i] === undefined || localStorage["ncr_tab" + tab.id + "_url_" + i] === ""){
+                        // if we have stored two (or more) urls from before, we start checking that this new url is not exactly the same as the last one we stored.
+                        // in most cases there should not be many urls stored doing redirects. you should have the none-NCR url, and the NCR'ified url. however the
+                        // domain "maps.google.com" is creating problems.
+                        // note: for this check to work "number_of_redirects_before_exit" has to be bigger than 2 (otherwise "i > 2" makes no sense)
+                        if (i > 2){
+                            if (localStorage["ncr_tab" + tab.id + "_url_" + (i-1)] === tab.url){
+                                debug("ERROR : endless loop : new url equals old url!", tab_status_to_work_with);
+                                localStorage["ncr_tab" + tab.id + "_break"] = 1;
+                                return;
+                            }
+                        }
+
+                        localStorage["ncr_tab" + tab.id + "_url_" + i] = tab.url;
+                        url_stored = true;
+                        break;
+                    }
                 }
+                if (url_stored === false){
+                    debug("ERROR : endless loop : too many redirects!", tab_status_to_work_with);
+                    localStorage["ncr_tab" + tab.id + "_break"] = 1;
+                    return;
+                } else {
+                    debug("reload tab with new url", changeInfo.status);
+                    chrome.tabs.update(tab.id, {url: newUrl});
+                }
+
             }
         }
     } else {                                                                                                                                // if we have a ncr match
-        localStorage["ncr_tab" + tab.id + "_reloads"] = 0;                                                                                  // ... we reset the reload count, so that new urls will be processed later on
+        debug("DONE : url gives ncr match - nothing to change!", changeInfo.status);
     }
 }
 
+
+
 // -----
-// delete local storage related to the tabs that are closed
+// delete local storage related to the tabs that are closed, or gets urls changed by user
 // -----
 function localStorageCleanup(tabId, removeIfo) {
-    localStorage.removeItem("ncr_tab" + tabId + "_url");
-    localStorage.removeItem("ncr_tab" + tabId + "_reloads");
+//    localStorage.removeItem("ncr_tab" + tabId + "_url");
+//    localStorage.removeItem("ncr_tab" + tabId + "_reloads");
 }
+
+
 
 // -----
 // listen to any tab change, please note that this will be trigged several times on one url change, or tab reload.
