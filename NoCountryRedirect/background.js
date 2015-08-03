@@ -19,12 +19,14 @@
 //  http://cochinblogs-potpourri.blogspot.in/2012/03/google-has-given-in-to-political.html
 //  http://www.etvanligliv.blogspot.no/
 //  https://maps.google.no/maps/myplaces?ll=60.3976,5.3179&spn=0.020563,0.066047&ctz=-120&t=m&z=15
-//  https://www.google.no/accounts/Logout2?hl=en-GB&service=mail&ile=1&ils=s.NO&ilc=5&continue=https%3A%2F%2Faccounts.google.com%2FServiceLogin%3Fservice%3Dmail%26passive%3Dtrue%26rm%3Dfalse%26continue%3Dhttps%3A%2F%2Fmail.google.com%2Fmail%2F%26ss%3D1%26scc%3D1%26ltmpl%3Ddefault%26ltmplcache%3D2%26hl%3Den-GB&zx=-644258560
 //  https://maps.google.no
 //  https://maps.google.com
 //  https://www.google.no/maps/@59.9288516,10.7582299,15z
 //  https://www.google.no/maps?source=tldsi&hl=en&hl=en
 //  http://books.google.no/
+//
+//  should NOT redirect:
+//  https://www.google.no/accounts/Logout2?hl=en-GB&service=mail&ile=1&ils=s.NO&ilc=5&continue=https%3A%2F%2Faccounts.google.com%2FServiceLogin%3Fservice%3Dmail%26passive%3Dtrue%26rm%3Dfalse%26continue%3Dhttps%3A%2F%2Fmail.google.com%2Fmail%2F%26ss%3D1%26scc%3D1%26ltmpl%3Ddefault%26ltmplcache%3D2%26hl%3Den-GB&zx=-644258560
 //
 // -- nifty things to remember:
 //  debug("tab.url = " + tab.url);      // alternative: encodeURIComponent(tab.url);
@@ -36,16 +38,20 @@ var number_of_redirects_before_exit     = 3;                                    
 var number_of_milliseconds_before_reset = 10000;                                                                                            // local storage for a tab is reset after this many milliseconds
 var tab_status_to_work_with             = "loading";                                                                                        // tab status is either 'undefined', 'loading' or 'complete'
 
+
+// -----
 // simple function that prints debugging messages
+// -----
 function debug(message, status){
     var doDebug = true;                                                                                                                     // if 'true' then print message, if 'false' do not
 
     if (doDebug){
-        if (status === tab_status_to_work_with){                                                                                            // to minimise output when debugging, we can ignore some tab statuses
+        if (status === tab_status_to_work_with){                                                                                            // to minimise output when debugging, we can ignore printing for some tab statuses
             console.log("DEBUG : " + message);
         }
     }
 }
+
 
 // printing some debugging info, doing some declarations and initialisations of some variables
 debug("NoCountryRedirect - background.js", tab_status_to_work_with);                                                                        // Hello, World!
@@ -78,6 +84,7 @@ var urlsToCheck         = new Array();
 urlsToCheck[0]          = "google";
 urlsToCheck[1]          = "blogspot";
 
+
 // -----
 // main function that checks URLs, and NCR'ifies those URLs who are to be NCR'ified
 // -----
@@ -94,6 +101,7 @@ function urlCheck(tabId, changeInfo, tab) {
     var ncrComRegExp        = new RegExp("^http(s)?://([a-z0-9\\-]{1,40}.)?([a-z0-9\\-]{1,40}.)?(google|blogspot).com(/ncr)?/", "i");
     var googleLogoutRegExp  = new RegExp("^http(s)?://(www.)?google.\\w{2,3}(.\\w{2,3})?/accounts/Logout");
     var chromeExtRegExp     = new RegExp("^chrome");
+    var bloggerBareDomain   = new RegExp("^http(s)?://(www.)?blogspot.\\w{2,3}");
     var i;
     var checkGoogle;
     var checkBlogspot;
@@ -101,7 +109,6 @@ function urlCheck(tabId, changeInfo, tab) {
     // ----- ---------------------------------------------------------------------------------------------
     // misc checks which in certain cases will stop the extension (return without doing anything)
     // -----
-
     // checks to avoid all the code being run every time the "onUpdated" event is triggered, which is more often than just reloads
     // changeInfo is either 'undefined', 'loading' or 'complete'
     if (changeInfo.status !== tab_status_to_work_with){
@@ -124,7 +131,6 @@ function urlCheck(tabId, changeInfo, tab) {
         debug("STOP : tab.url matches whitelist : " +localStorage["ncr_whitelist_1"]+ " : " +localStorage["ncr_whitelist_2"]+ " : " +localStorage["ncr_whitelist_3"], changeInfo.status);
         return;
     }
-
     // -----
     // / end of stop checks
     // ----- ---------------------------------------------------------------------------------------------
@@ -157,10 +163,8 @@ function urlCheck(tabId, changeInfo, tab) {
         chrome.pageAction.show(tabId);                                                                                                      // show the page action (the NCR icon)
     }
 
-    // -----
     // get user inputs
     // we need to get these values each time a URL is checked, in case options are changed by the user
-    // -----
     checkGoogle     = (localStorage["ncr_checkbox_google"] === "true");
     checkBlogspot   = (localStorage["ncr_checkbox_blogspot"] === "true");
 
@@ -170,7 +174,7 @@ function urlCheck(tabId, changeInfo, tab) {
     // we only want to process with the URL as long at is not an already .com URL
     // and if it is not a country specific google logout link
     // -----
-    if ( !(tab.url.match(ncrComRegExp)) && !(tab.url.match(googleLogoutRegExp)) ){
+    if ( !(tab.url.match(ncrComRegExp)) && !(tab.url.match(googleLogoutRegExp)) && !(tab.url.match(bloggerBareDomain)) ){
         for(i = 0; i < regExpUrlsToCheck.length; i++) {                                                                                     // loop through all URLs to check
             debug("regExpUrlsToCheck["+i+"] = " + regExpUrlsToCheck[i], changeInfo.status);
 
@@ -237,10 +241,9 @@ function urlCheck(tabId, changeInfo, tab) {
             }
         }
     } else {                                                                                                                                // if we have a ncr match
-        debug("DONE : url gives ncr match - nothing to change!", changeInfo.status);
+        debug("DONE : url gives ncr match, or exception - we change nothing!", changeInfo.status);
     }
 }
-
 
 
 // -----
@@ -254,7 +257,6 @@ function localStorageCleanup(tabId, removeIfo) {
     localStorage.removeItem("ncr_tab" + tabId + "_break");
     localStorage.removeItem("ncr_tab" + tabId + "_timestamp");
 }
-
 
 
 // -----
