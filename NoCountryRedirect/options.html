@@ -1,7 +1,7 @@
 <html>
 <head><title>NCR Options</title></head>
 <!--
-    author : Frode Klevstul : www.watashi.no : ncrextension at klevstul dot com
+    author : Frode Klevstul : www.klevstul.com : ncrextension at klevstul dot com
 
     ref:
         http://developer.chrome.com/trunk/extensions/options.html
@@ -27,11 +27,12 @@
         WHITELIST:
         Below you can enter up to three domains that you want the
         NCR extension to ignore. If an URL matches a domain in the
-        list below it the URL will not be NCRified. Please type
-        down the domains without "http://" in front.
+        list below the URL will not be NCRified.
 
         Example:
         google.de
+        (note: without "http(s)://" in front!)
+
 
         <input type="text" id="ncr_whitelist_1" name="whitelist_1" value="" /> (domain 1 to whitelist)
         <input type="text" id="ncr_whitelist_2" name="whitelist_2" value="" /> (domain 2 to whitelist)
@@ -40,6 +41,15 @@
         <span style="white-space: nowrap; background-color:yellow;" id="status"></span>
 
         <button id="save">Save options</button>
+
+
+
+
+
+        RESOURCES:
+        <a href="https://chrome.google.com/webstore/detail/nocountryredirect-ncr/ciboebddidackjicoeoiigdnbmchkdll" target="_blank">Chrome Web Store</a>
+        <a href="http://www.chronicles.no/2012/08/chrome-ncr-extension.html" target="_blank">Related blog post</a>
+        <a href="https://github.com/klevstul/NoCountryRedirect" target="_blank">Code on GitHub</a>
 
 
 
@@ -65,8 +75,6 @@
         developer mode - going to "Resources - Local Storage".
 
         <button id="clear_storage">Clear storage</button>
-
-
     </pre>
 </body>
 </html>

@@ -33,7 +33,7 @@
 
 // config variables
 var number_of_redirects_before_exit     = 3;                                                                                                // the number of redirects that is tried, before giving up on "NCR'ifying" an url
-var number_of_milliseconds_before_reset = 10000;                                                                                             // local storage for a tab is reset after this many milliseconds
+var number_of_milliseconds_before_reset = 10000;                                                                                            // local storage for a tab is reset after this many milliseconds
 var tab_status_to_work_with             = "loading";                                                                                        // tab status is either 'undefined', 'loading' or 'complete'
 
 // simple function that prints debugging messages
@@ -109,9 +109,9 @@ function urlCheck(tabId, changeInfo, tab) {
         return;
     }
 
-    // stop the extension if the tab is a chrome settings page, instead of a normal web page
+    // stop the extension if the tab is a chrome page (like new tab, or settings page), instead of a normal web page
     if ( tab.url.match(chromeExtRegExp) ){
-        debug("STOP : we have a chrome settings page", changeInfo.status);
+        debug("STOP : we have a chrome page", changeInfo.status);
         return;
     }
 
@@ -244,11 +244,15 @@ function urlCheck(tabId, changeInfo, tab) {
 
 
 // -----
-// delete local storage related to the tabs that are closed, or gets urls changed by user
+// delete local storage related to the tabs that are closed
 // -----
 function localStorageCleanup(tabId, removeIfo) {
-//    localStorage.removeItem("ncr_tab" + tabId + "_url");
-//    localStorage.removeItem("ncr_tab" + tabId + "_reloads");
+    for (i = 1; i <= number_of_redirects_before_exit; i=i+1){
+        localStorage.removeItem("ncr_tab" + tabId +  "_url_" + i);
+    }
+
+    localStorage.removeItem("ncr_tab" + tabId + "_break");
+    localStorage.removeItem("ncr_tab" + tabId + "_timestamp");
 }
 
 
