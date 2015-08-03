@@ -17,7 +17,8 @@ https://github.com/klevstul/NoCountryRedirect
 
 
 *** REVISION HISTORY ***
-// 2015.08.04 : 0.8.1508 : frode klevstul : fixed bug that prevented user from visiting www.blogspot.xx (example: www.blogspot.fr) (NCR-8)
+// 2015.08.03 : 0.9.1508 : frode klevstul : improved code, to completely avoid looping for maps domains (NCR-13)
+// 2015.08.03 : 0.8.1508 : frode klevstul : fixed bug that prevented user from visiting www.blogspot.xx (example: www.blogspot.fr) (NCR-8)
 // 2015.08.03 : 0.8.1508 : frode klevstul : fixed code to prevent endless loop (for maps.google.com) (NCR-11)
 // 2014.09.07 : 0.7.1409 : frode klevstul : added whitelisting functionality (NCR-9)
 // 2014.09.07 : 0.7.1409 : frode klevstul : introduced code to prevent endless loops (NCR-6)

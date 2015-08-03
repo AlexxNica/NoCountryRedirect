@@ -43,7 +43,7 @@ var tab_status_to_work_with             = "loading";                            
 // simple function that prints debugging messages
 // -----
 function debug(message, status){
-    var doDebug = false;                                                                                                                    // if 'true' then print message, if 'false' do not
+    var doDebug = true;                                                                                                                    // if 'true' then print message, if 'false' do not
 
     if (doDebug){
         if (status === tab_status_to_work_with){                                                                                            // to minimise output when debugging, we can ignore printing for some tab statuses
@@ -102,6 +102,8 @@ function urlCheck(tabId, changeInfo, tab) {
     var googleLogoutRegExp  = new RegExp("^http(s)?://(www.)?google.\\w{2,3}(.\\w{2,3})?/accounts/Logout");
     var chromeExtRegExp     = new RegExp("^chrome");
     var bloggerBareDomain   = new RegExp("^http(s)?://(www.)?blogspot.\\w{2,3}");
+    var mapsTldRedirect     = new RegExp("^http(s)?://(www.)?google.\\w{2,3}(.\\w{2,3})?/maps\\?");                                         // endless loops created by jumping to "https://www.google.com/maps?source=tldsi&hl=en"
+
     var i;
     var checkGoogle;
     var checkBlogspot;
@@ -174,7 +176,7 @@ function urlCheck(tabId, changeInfo, tab) {
     // we only want to process with the URL as long at is not an already .com URL
     // and if it is not a country specific google logout link
     // -----
-    if ( !(tab.url.match(ncrComRegExp)) && !(tab.url.match(googleLogoutRegExp)) && !(tab.url.match(bloggerBareDomain)) ){
+    if ( !(tab.url.match(ncrComRegExp)) && !(tab.url.match(googleLogoutRegExp)) && !(tab.url.match(bloggerBareDomain)) && !(tab.url.match(mapsTldRedirect)) ){
         for(i = 0; i < regExpUrlsToCheck.length; i++) {                                                                                     // loop through all URLs to check
             debug("regExpUrlsToCheck["+i+"] = " + regExpUrlsToCheck[i], changeInfo.status);
 
