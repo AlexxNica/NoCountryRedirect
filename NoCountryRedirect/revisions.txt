@@ -1,4 +1,4 @@
-NOTE: This extension only works for blogspot.com and google.com, no other domains!
+THIS EXTENSION ONLY WORKS FOR BLOGSPOT.COM AND GOOGLE.COM, NO OTHER DOMAINS!
 
 This extension makes sure you'll stay on the .com pages for google.com and blogspot.com. This is done by adding the No Country Redirect (NCR) tag for those URLs. In other words it prevents you from automatically being redirected from google.com or blogspot.com to a country code top level domain (ccTLD) like 'google.jp', 'google.co.uk' or what have you got. The extension is an "unredirect solution", it completely stops or avoid redirects from google.com and blogspot.com. So there will be no more Google redirections if using this extension.
 
@@ -17,6 +17,7 @@ https://github.com/klevstul/NoCountryRedirect
 
 
 *** REVISION HISTORY ***
+// 2015.08.04 : 0.9.1508 : frode klevstul : brand new layout on the options page (NCR-13)
 // 2015.08.03 : 0.9.1508 : frode klevstul : improved code, to completely avoid looping for maps domains (NCR-13)
 // 2015.08.03 : 0.8.1508 : frode klevstul : fixed bug that prevented user from visiting www.blogspot.xx (example: www.blogspot.fr) (NCR-8)
 // 2015.08.03 : 0.8.1508 : frode klevstul : fixed code to prevent endless loop (for maps.google.com) (NCR-11)

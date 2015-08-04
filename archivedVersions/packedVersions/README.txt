@@ -1,0 +1,1 @@
+key for pem file is "code" in norwegian
