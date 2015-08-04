@@ -4,8 +4,8 @@
 // started: 2012.08.13
 // note:    see revisions.txt for changelog
 //
-// - MORE -
-// -- miscellaneous test URLs:
+// - MORE INFORMATION BELOW -
+// -- miscellaneous test URLs (test all these URLs before every new release):
 //  https://google.com
 //  http://www.google.es/url?sa=t&rct=j&q=&esrc=s&source=web&cd=4&ved=0CH4QFjAD&url=http%3A%2F%2Fwww.chronicles.no%2F2012%2F07%2Ftop-10-alternatives-to-gmail.html&ei=6KcyUI-wEcS5hAe9hIC4Aw&usg=AFQjCNFllV5QgNfwGHT6cwN8a0N2Ze07vQ&sig2=EKq3lPaLL1d4DosFQVJodw
 //  http://www.google.no/imgres?start=97&hl=en&client=firefox-a&hs=zxc&sa=X&rls=org.mozilla:en-US:official&biw=1280&bih=620&tbm=isch&prmd=imvns&tbnid=47Cjnrli_pYG2M:&imgrefurl=http://www.chronicles.no/2012/07/mont-blanc-10km-2012.html&docid=wRsjDboEn1XGRM&imgurl=http://3.bp.blogspot.com/-JUQP0mJaBl8/T_CSCtBgiNI/AAAAAAAACyM/Qi7xrBEtrSA/s1600/k009.png&w=983&h=650&ei=X2AwUP2NLOXe4QT-64CADQ&zoom=1&iact=hc&vpx=476&vpy=129&dur=4294&hovh=182&hovw=276&tx=174&ty=115&sig=103807963143718040267&page=5&tbnh=124&tbnw=170&ndsp=27&ved=1t:429,r:16,s:97,i:56
@@ -35,7 +35,7 @@
 
 // config variables
 var number_of_redirects_before_exit     = 3;                                                                                                // the number of redirects that is tried, before giving up on "NCR'ifying" an url
-var number_of_milliseconds_before_reset = 10000;                                                                                            // local storage for a tab is reset after this many milliseconds
+var number_of_milliseconds_before_reset = 5000;                                                                                             // local storage for a tab is reset after this many milliseconds
 var tab_status_to_work_with             = "loading";                                                                                        // tab status is either 'undefined', 'loading' or 'complete'
 
 
@@ -43,7 +43,7 @@ var tab_status_to_work_with             = "loading";                            
 // simple function that prints debugging messages
 // -----
 function debug(message, status){
-    var doDebug = true;                                                                                                                    // if 'true' then print message, if 'false' do not
+    var doDebug = false;                                                                                                                    // if 'true' then print message, if 'false' do not
 
     if (doDebug){
         if (status === tab_status_to_work_with){                                                                                            // to minimise output when debugging, we can ignore printing for some tab statuses
@@ -102,7 +102,7 @@ function urlCheck(tabId, changeInfo, tab) {
     var googleLogoutRegExp  = new RegExp("^http(s)?://(www.)?google.\\w{2,3}(.\\w{2,3})?/accounts/Logout");
     var chromeExtRegExp     = new RegExp("^chrome");
     var bloggerBareDomain   = new RegExp("^http(s)?://(www.)?blogspot.\\w{2,3}");
-    var mapsTldRedirect     = new RegExp("^http(s)?://(www.)?google.\\w{2,3}(.\\w{2,3})?/maps\\?");                                         // endless loops created by jumping to "https://www.google.com/maps?source=tldsi&hl=en"
+    var mapsTldRedirect     = new RegExp("^http(s)?://(www.)?google.\\w{2,3}(.\\w{2,3})?/maps\\?");                                         // endless loops created by jumping to "https://www.google.com/maps?source=tldsi&hl=en" (NCR-13)
 
     var i;
     var checkGoogle;
