@@ -1,5 +1,11 @@
 <html>
-<head><title>NCR Options</title></head>
+<head>
+    <title>NCR Options</title>
+
+    <script type="text/javascript" src="options.js"></script>
+    <link href="bootstrap.min.css" rel="stylesheet">
+
+</head>
 <!--
     author : Frode Klevstul : www.klevstul.com : ncrextension at klevstul dot com
 
@@ -8,73 +14,141 @@
         http://developer.chrome.com/extensions/options.html
 -->
 
-<script type="text/javascript" src="options.js"></script>
 
 <body>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-6">
+                <h1>NoCountryRedirect (NCR)</h1>
+            </div>
+            <div class="col-md-6">
+                <img style="padding-top: 15px;" src="ncr48x48.png">
+            </div>
+        </div>
+
+        <div class="row">
+            &nbsp;
+        </div>
+
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">Domain settings</div>
+                <div class="panel-body">
+                    <p>Choose what domains you want NCRified:</p>
+                </div>
+                <div class="panel-body">
+                    <span style="padding-right: 20px;"><input type="checkbox" id="ncr_checkbox_google" name="google" value="google" /></span> google.com
+                </div>
+                <div class="panel-body">
+                    <span style="padding-right: 20px;"><input type="checkbox" id="ncr_checkbox_blogspot" name="blogspot" value="blogspot" /></span> blogspot.com
+                </div>
+                <div class="panel-body">
+                    <p>
+                        Example:<br/>
+                        If you set "blogspot.com" to be NCRified, this extension will
+                        always redirect you from country specific blogspot domains to
+                        '.com' addresses. Hence, if you type 'test.blogspot.jp' you
+                        will be redirected to 'test.blogspot.com'.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">Whitelist settings</div>
+                <div class="panel-body">
+                    <p>Domains to ignore (without "http(s)://" in front):</p>
+                </div>
+                <div class="panel-body">
+                    <span style="padding-right: 20px;">1:</span> <input type="text" id="ncr_whitelist_1" name="whitelist_1" value="" />
+                </div>
+                <div class="panel-body">
+                    <span style="padding-right: 20px;">2:</span> <input type="text" id="ncr_whitelist_2" name="whitelist_2" value="" />
+                </div>
+                <div class="panel-body">
+                    <span style="padding-right: 20px;">3:</span> <input type="text" id="ncr_whitelist_3" name="whitelist_3" value="" />
+                </div>
+                <div class="panel-body">
+                    <p>You can enter up to three domains that you want the NCR extension to ignore. If an URL matches a domain in the list above, the URL will not be NCRified.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            &nbsp;
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2">
+                <button id="save">Save settings</button>
+            </div>
+            <div class="col-sm-10">
+                <span style="white-space: nowrap; background-color:yellow;" id="status"></span>&nbsp;
+            </div>
+        </div>
+
+
+        <div class="row">
+            &nbsp;
+        </div>
+
+        <div class="row">
+            &nbsp;
+        </div>
+
+        <div class="row">
+            &nbsp;
+        </div>
+
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">Local storage</div>
+                <div class="panel-body">
+                    <p>Intruduced in version 0.7.1409 was code for preventing
+                    endless loops. For doing it was crucial to save
+                    some browsing history in the browser's local storage.
+                    The browsing history for a tab is deleted as the tab
+                    is closed, but pressing the button below will delete
+                    all browsing information saved in the local storage.</p>
+
+                    <p>There should be no need for pressing this button. It was added mainly for debugging purposes.</p>
+
+                    <p>Note that you can view what is being stored by this (and other) extensions, using Chrome's
+                    developer mode for extensions, opening an extension's background page, and navigating to "Resources - Local Storage".</p>
+                </div>
+                <div class="panel-body">
+                    <button id="clear_storage">Clear local storage</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">Resources</div>
+                <div class="panel-body">
+                    <p>A few NCR-related places on the Internet:</p>
+                </div>
+                <div class="panel-body">
+                    <a href="https://github.com/klevstul/NoCountryRedirect" target="_blank">Code on GitHub</a>
+                </div>
+                <div class="panel-body">
+                    <a href="https://chrome.google.com/webstore/detail/nocountryredirect-ncr/ciboebddidackjicoeoiigdnbmchkdll" target="_blank">Chrome Web Store</a>
+                </div>
+                <div class="panel-body">
+                    <a href="http://www.chronicles.no/2012/08/chrome-ncr-extension.html" target="_blank">Related blog post</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
     <pre>
-        DOMAINS TO NCRify:
-        Choose the domain(s) that you want to NCRify.
-
-        Example:
-        If you set "blogspot.com" to be NCRified, this extension will
-        always redirect you from country specific blogspot domains to
-        '.com' addresses. Hence, if you type 'test.blogspot.jp' you
-        will be redirected to 'test.blogspot.com'.
-
-        <input type="checkbox" id="ncr_checkbox_google" name="google" value="google" /> google.com
-        <input type="checkbox" id="ncr_checkbox_blogspot" name="blogspot" value="blogspot" /> blogspot.com
-
-        WHITELIST:
-        Below you can enter up to three domains that you want the
-        NCR extension to ignore. If an URL matches a domain in the
-        list below the URL will not be NCRified.
-
-        Example:
-        google.de
-        (note: without "http(s)://" in front!)
-
-
-        <input type="text" id="ncr_whitelist_1" name="whitelist_1" value="" /> (domain 1 to whitelist)
-        <input type="text" id="ncr_whitelist_2" name="whitelist_2" value="" /> (domain 2 to whitelist)
-        <input type="text" id="ncr_whitelist_3" name="whitelist_3" value="" /> (domain 3 to whitelist)
-
-        <span style="white-space: nowrap; background-color:yellow;" id="status"></span>
-
-        <button id="save">Save options</button>
-
-
-
-
-
-        RESOURCES:
-        <a href="https://chrome.google.com/webstore/detail/nocountryredirect-ncr/ciboebddidackjicoeoiigdnbmchkdll" target="_blank">Chrome Web Store</a>
-        <a href="http://www.chronicles.no/2012/08/chrome-ncr-extension.html" target="_blank">Related blog post</a>
-        <a href="https://github.com/klevstul/NoCountryRedirect" target="_blank">Code on GitHub</a>
-
-
-
-
-
-
-
-
-
-
-        CLEAR LOCAL STORAGE:
-        Intruduced in version 0.7.1409 was code for preventing
-        endless loops. For doing this it was crucial to save
-        some browsing history in the browser's local storage.
-        The browsing history for a tab is deleted as the tab
-        is closed, but pressing the button below will delete
-        all browsing information saved in the local storage.
-
-        Normally there should be no need for pressing this
-        button. It was added mainly for debugging purposes.
-
-        Note: you can view what is being stored using Chrome's
-        developer mode - going to "Resources - Local Storage".
-
-        <button id="clear_storage">Clear storage</button>
+        <center>
+        an extension by frode klevstul
+        <a href="http://klevstul.com" target="_blank">www.klevstul.com</a>
+        </center>
     </pre>
 </body>
 </html>

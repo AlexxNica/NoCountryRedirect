@@ -74,7 +74,7 @@ function needToSave(){
     debug("needToSave()");
 
     var status = document.getElementById("status");
-    status.innerHTML = "Click 'Save' to apply changes!";
+    status.innerHTML = "&nbsp; Click 'Save' to apply changes! &nbsp;";
 }
 
 
