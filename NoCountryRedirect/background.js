@@ -12,6 +12,7 @@
 //  http://www.google.pl/imgres?um=1&hl=pl&biw=1600&bih=775&tbm=isch&tbnid=oLFtTiAlda2ZdM:&imgrefurl=http://www.chronicles.no/2012/07/sommerstevne-ii-bislett-2012.html&docid=sE5MS_X81OPcGM&imgurl=http://3.bp.blogspot.com/-uOLBx1OnDBE/UAXwl8OpG-I/AAAAAAAADHo/fVl2RWtz2Co/s1600/allDone.jpg&w=1280&h=960&ei=4i0xUNLWCsjAtAa3-4CACw&zoom=1&iact=hc&vpx=517&vpy=470&dur=419&hovh=194&hovw=259&tx=163&ty=115&sig=104906337058271128867&page=1&tbnh=130&tbnw=184&start=0&ndsp=32&ved=1t:429,r:26,s:0,i:150
 //  http://google.co.uk/
 //  http://google.com.ua
+//  https://google.com.ua
 //  http://siljaifarta.blogspot.no/view/classic
 //  http://siljaifarta.blogspot.no
 //  http://siljaifarta.blogspot.co.uk/
@@ -24,6 +25,7 @@
 //  https://www.google.no/maps/@59.9288516,10.7582299,15z
 //  https://www.google.no/maps?source=tldsi&hl=en&hl=en
 //  http://books.google.no/
+//  https://www.google.com/flights
 //
 //  should NOT redirect:
 //  https://www.google.no/accounts/Logout2?hl=en-GB&service=mail&ile=1&ils=s.NO&ilc=5&continue=https%3A%2F%2Faccounts.google.com%2FServiceLogin%3Fservice%3Dmail%26passive%3Dtrue%26rm%3Dfalse%26continue%3Dhttps%3A%2F%2Fmail.google.com%2Fmail%2F%26ss%3D1%26scc%3D1%26ltmpl%3Ddefault%26ltmplcache%3D2%26hl%3Den-GB&zx=-644258560
@@ -43,7 +45,7 @@ var tab_status_to_work_with             = "loading";                            
 // simple function that prints debugging messages
 // -----
 function debug(message, status){
-    var doDebug = true;                                                                                                                    // if 'true' then print message, if 'false' do not
+    var doDebug = false;                                                                                                                    // if 'true' then print message, if 'false' do not
 
     if (doDebug){
         if (status === tab_status_to_work_with){                                                                                            // to minimise output when debugging, we can ignore printing for some tab statuses
@@ -121,6 +123,7 @@ function urlCheck(tabId, changeInfo, tab) {
     var googleRegExp        = new RegExp("^http(s)?://(books.|maps.|www.)?google.\\w{2,3}(.\\w{2,3})?/$", "i");
     var ncrComRegExp        = new RegExp("^http(s)?://([a-z0-9\\-]{1,40}.)?([a-z0-9\\-]{1,40}.)?(google|blogspot).com(/ncr)?/", "i");
     var googleLogoutRegExp  = new RegExp("^http(s)?://(www.)?google.\\w{2,3}(.\\w{2,3})?/accounts/Logout");
+    var googleFlightsRegExp = new RegExp("^http(s)?://(www.)?google.\\w{2,3}(.\\w{2,3})?/flights");
     var chromeExtRegExp     = new RegExp("^chrome");
     var bloggerBareDomain   = new RegExp("^http(s)?://(www.)?blogspot.\\w{2,3}");
     var mapsTldRedirect     = new RegExp("^http(s)?://(www.)?google.\\w{2,3}(.\\w{2,3})?/maps\\?");                                         // endless loops created by jumping to "https://www.google.com/maps?source=tldsi&hl=en" (NCR-13)
@@ -216,11 +219,15 @@ function urlCheck(tabId, changeInfo, tab) {
                     debug("google url", changeInfo.status);
 
                     if ( newUrl.match(googleRegExp) && !newUrl.match("books.") ){
-                        debug("google url - short type", changeInfo.status);
-                        newUrl = newUrl.replace(tldCcRegexp, ".com/ncr");                                                                   // if nothing is after "google.com/"
+                        debug("google url - ncr-able url", changeInfo.status);
+                        newUrl = newUrl.replace(tldCcRegexp, ".com/ncr");                                                                   // if nothing is after "google.com/" and it is possible to add "/ncr" to the domain
                     } else {
-                        debug("google url - long type", changeInfo.status);
+                        debug("google url - com-able url", changeInfo.status);
                         newUrl = newUrl.replace(tldCcRegexp, ".com/");                                                                      // if URL is longer, like "google.com/?hl=en&...."
+
+                        if ( newUrl.match(googleFlightsRegExp) ){                                                                           // special case for google flights (ncr-16)
+                            newUrl = newUrl + "?gl=US";
+                        }
                     }
 
                 } else if ( urlsToCheck[i].match("blogspot") && checkBlogspot ) {                                                           // blogspot url
@@ -232,7 +239,6 @@ function urlCheck(tabId, changeInfo, tab) {
                 }
 
                 debug("newUrl : " + newUrl, changeInfo.status);                                                                             // the new NCRified url
-
 
                 // this part of the code prevents endless redirects (maps.google.com is a problematic url)
                 // "number_of_redirects_before_exit" - this is the number of times we run the "for loop", where we store urls, so for example, if this number is 2, we store two urls for the tab.
