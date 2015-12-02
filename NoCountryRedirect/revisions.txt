@@ -17,6 +17,9 @@ https://github.com/klevstul/NoCountryRedirect
 
 
 *** REVISION HISTORY ***
+// 2015.12.02 : 1.0.1512 : frode klevstul : increased whitelist domains from three to 10 (NCR-15)
+// 2015.12.02 : 1.0.1512 : frode klevstul : added support for google flights (NCR-16)
+// 2015.12.02 : 1.0.1512 : frode klevstul : updated links on options page (NCR-17)
 // 2015.08.04 : 0.9.1508 : frode klevstul : brand new layout on the options page (NCR-13)
 // 2015.08.03 : 0.9.1508 : frode klevstul : improved code, to completely avoid looping for maps domains (NCR-13)
 // 2015.08.03 : 0.8.1508 : frode klevstul : fixed bug that prevented user from visiting www.blogspot.xx (example: www.blogspot.fr) (NCR-8)

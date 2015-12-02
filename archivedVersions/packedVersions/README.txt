@@ -1,1 +1,1 @@
-key for pem file is "code" in norwegian
+"code" in norwegian for the eoc
