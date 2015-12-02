@@ -43,7 +43,7 @@ var tab_status_to_work_with             = "loading";                            
 // simple function that prints debugging messages
 // -----
 function debug(message, status){
-    var doDebug = false;                                                                                                                    // if 'true' then print message, if 'false' do not
+    var doDebug = true;                                                                                                                    // if 'true' then print message, if 'false' do not
 
     if (doDebug){
         if (status === tab_status_to_work_with){                                                                                            // to minimise output when debugging, we can ignore printing for some tab statuses
@@ -72,6 +72,27 @@ if ( localStorage["ncr_whitelist_2"] === undefined ){
 }
 if ( localStorage["ncr_whitelist_3"] === undefined ){
     localStorage["ncr_whitelist_3"] = "";
+}
+if ( localStorage["ncr_whitelist_4"] === undefined ){
+    localStorage["ncr_whitelist_4"] = "";
+}
+if ( localStorage["ncr_whitelist_5"] === undefined ){
+    localStorage["ncr_whitelist_5"] = "";
+}
+if ( localStorage["ncr_whitelist_6"] === undefined ){
+    localStorage["ncr_whitelist_6"] = "";
+}
+if ( localStorage["ncr_whitelist_7"] === undefined ){
+    localStorage["ncr_whitelist_7"] = "";
+}
+if ( localStorage["ncr_whitelist_8"] === undefined ){
+    localStorage["ncr_whitelist_8"] = "";
+}
+if ( localStorage["ncr_whitelist_9"] === undefined ){
+    localStorage["ncr_whitelist_9"] = "";
+}
+if ( localStorage["ncr_whitelist_10"] === undefined ){
+    localStorage["ncr_whitelist_10"] = "";
 }
 
 // build an array with regular expressions and URLs that are to be checked and NCR'ified if possible
@@ -129,8 +150,15 @@ function urlCheck(tabId, changeInfo, tab) {
                (tab.url.match(localStorage["ncr_whitelist_1"]) && localStorage["ncr_whitelist_1"] !== "")
             || (tab.url.match(localStorage["ncr_whitelist_2"]) && localStorage["ncr_whitelist_2"] !== "")
             || (tab.url.match(localStorage["ncr_whitelist_3"]) && localStorage["ncr_whitelist_3"] !== "")
+            || (tab.url.match(localStorage["ncr_whitelist_4"]) && localStorage["ncr_whitelist_4"] !== "")
+            || (tab.url.match(localStorage["ncr_whitelist_5"]) && localStorage["ncr_whitelist_5"] !== "")
+            || (tab.url.match(localStorage["ncr_whitelist_6"]) && localStorage["ncr_whitelist_6"] !== "")
+            || (tab.url.match(localStorage["ncr_whitelist_7"]) && localStorage["ncr_whitelist_7"] !== "")
+            || (tab.url.match(localStorage["ncr_whitelist_8"]) && localStorage["ncr_whitelist_8"] !== "")
+            || (tab.url.match(localStorage["ncr_whitelist_9"]) && localStorage["ncr_whitelist_9"] !== "")
+            || (tab.url.match(localStorage["ncr_whitelist_10"]) && localStorage["ncr_whitelist_10"] !== "")
         ){
-        debug("STOP : tab.url matches whitelist : " +localStorage["ncr_whitelist_1"]+ " : " +localStorage["ncr_whitelist_2"]+ " : " +localStorage["ncr_whitelist_3"], changeInfo.status);
+        debug("STOP : tab.url matches whitelist : " +localStorage["ncr_whitelist_1"]+ " : " +localStorage["ncr_whitelist_2"]+ " : " +localStorage["ncr_whitelist_3"]+ " : " +localStorage["ncr_whitelist_4"]+ " : " +localStorage["ncr_whitelist_5"]+ " : " +localStorage["ncr_whitelist_6"]+ " : " +localStorage["ncr_whitelist_7"]+ " : " +localStorage["ncr_whitelist_8"]+ " : " +localStorage["ncr_whitelist_9"]+ " : " +localStorage["ncr_whitelist_10"], changeInfo.status);
         return;
     }
     // -----

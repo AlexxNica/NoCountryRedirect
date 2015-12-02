@@ -1,7 +1,6 @@
 // -----------------------------------------------------------------
 // file:    options.js
 // what:    JavaScript code for the options page
-// started: 2012.08.xx (first version finished 2013.03.27)
 // -----------------------------------------------------------------
 
 
@@ -28,12 +27,26 @@ function restoreOptions(){
     var ncr_whitelist_1             = document.getElementById("ncr_whitelist_1");
     var ncr_whitelist_2             = document.getElementById("ncr_whitelist_2");
     var ncr_whitelist_3             = document.getElementById("ncr_whitelist_3");
+    var ncr_whitelist_4             = document.getElementById("ncr_whitelist_4");
+    var ncr_whitelist_5             = document.getElementById("ncr_whitelist_5");
+    var ncr_whitelist_6             = document.getElementById("ncr_whitelist_6");
+    var ncr_whitelist_7             = document.getElementById("ncr_whitelist_7");
+    var ncr_whitelist_8             = document.getElementById("ncr_whitelist_8");
+    var ncr_whitelist_9             = document.getElementById("ncr_whitelist_9");
+    var ncr_whitelist_10            = document.getElementById("ncr_whitelist_10");
 
     ncr_checkbox_google.checked     = (localStorage["ncr_checkbox_google"] === "true");
     ncr_checkbox_blogspot.checked   = (localStorage["ncr_checkbox_blogspot"] === "true");
     ncr_whitelist_1.value           = localStorage["ncr_whitelist_1"]
     ncr_whitelist_2.value           = localStorage["ncr_whitelist_2"]
     ncr_whitelist_3.value           = localStorage["ncr_whitelist_3"]
+    ncr_whitelist_4.value           = localStorage["ncr_whitelist_4"]
+    ncr_whitelist_5.value           = localStorage["ncr_whitelist_5"]
+    ncr_whitelist_6.value           = localStorage["ncr_whitelist_6"]
+    ncr_whitelist_7.value           = localStorage["ncr_whitelist_7"]
+    ncr_whitelist_8.value           = localStorage["ncr_whitelist_8"]
+    ncr_whitelist_9.value           = localStorage["ncr_whitelist_9"]
+    ncr_whitelist_10.value          = localStorage["ncr_whitelist_10"]
 }
 
 
@@ -52,18 +65,39 @@ function clickSave(){
     var ncr_whitelist_1                     = document.getElementById("ncr_whitelist_1");
     var ncr_whitelist_2                     = document.getElementById("ncr_whitelist_2");
     var ncr_whitelist_3                     = document.getElementById("ncr_whitelist_3");
+    var ncr_whitelist_4                     = document.getElementById("ncr_whitelist_4");
+    var ncr_whitelist_5                     = document.getElementById("ncr_whitelist_5");
+    var ncr_whitelist_6                     = document.getElementById("ncr_whitelist_6");
+    var ncr_whitelist_7                     = document.getElementById("ncr_whitelist_7");
+    var ncr_whitelist_8                     = document.getElementById("ncr_whitelist_8");
+    var ncr_whitelist_9                     = document.getElementById("ncr_whitelist_9");
+    var ncr_whitelist_10                    = document.getElementById("ncr_whitelist_10");
 
     localStorage["ncr_checkbox_google"]     = ncr_checkbox_google.checked;
     localStorage["ncr_checkbox_blogspot"]   = ncr_checkbox_blogspot.checked;
     localStorage["ncr_whitelist_1"]         = ncr_whitelist_1.value;
     localStorage["ncr_whitelist_2"]         = ncr_whitelist_2.value;
     localStorage["ncr_whitelist_3"]         = ncr_whitelist_3.value;
+    localStorage["ncr_whitelist_4"]         = ncr_whitelist_4.value;
+    localStorage["ncr_whitelist_5"]         = ncr_whitelist_5.value;
+    localStorage["ncr_whitelist_6"]         = ncr_whitelist_6.value;
+    localStorage["ncr_whitelist_7"]         = ncr_whitelist_7.value;
+    localStorage["ncr_whitelist_8"]         = ncr_whitelist_8.value;
+    localStorage["ncr_whitelist_9"]         = ncr_whitelist_9.value;
+    localStorage["ncr_whitelist_10"]        = ncr_whitelist_10.value;
 
     debug("ncr_checkbox_google = " + localStorage["ncr_checkbox_google"] );
     debug("ncr_checkbox_blogspot = " + localStorage["ncr_checkbox_blogspot"] );
     debug("ncr_whitelist_1 = " + localStorage["ncr_whitelist_1"] );
     debug("ncr_whitelist_2 = " + localStorage["ncr_whitelist_2"] );
     debug("ncr_whitelist_3 = " + localStorage["ncr_whitelist_3"] );
+    debug("ncr_whitelist_4 = " + localStorage["ncr_whitelist_4"] );
+    debug("ncr_whitelist_5 = " + localStorage["ncr_whitelist_5"] );
+    debug("ncr_whitelist_6 = " + localStorage["ncr_whitelist_6"] );
+    debug("ncr_whitelist_7 = " + localStorage["ncr_whitelist_7"] );
+    debug("ncr_whitelist_8 = " + localStorage["ncr_whitelist_8"] );
+    debug("ncr_whitelist_9 = " + localStorage["ncr_whitelist_9"] );
+    debug("ncr_whitelist_10 = " + localStorage["ncr_whitelist_10"] );
 }
 
 
@@ -113,6 +147,27 @@ window.addEventListener("load", function()
         .addEventListener("change", needToSave, false);
 
     document.getElementById("ncr_whitelist_3")
+        .addEventListener("change", needToSave, false);
+
+    document.getElementById("ncr_whitelist_4")
+        .addEventListener("change", needToSave, false);
+
+    document.getElementById("ncr_whitelist_5")
+        .addEventListener("change", needToSave, false);
+
+    document.getElementById("ncr_whitelist_6")
+        .addEventListener("change", needToSave, false);
+
+    document.getElementById("ncr_whitelist_7")
+        .addEventListener("change", needToSave, false);
+
+    document.getElementById("ncr_whitelist_8")
+        .addEventListener("change", needToSave, false);
+
+    document.getElementById("ncr_whitelist_9")
+        .addEventListener("change", needToSave, false);
+
+    document.getElementById("ncr_whitelist_10")
         .addEventListener("change", needToSave, false);
 
     document.getElementById("save")
