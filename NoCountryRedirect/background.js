@@ -66,6 +66,9 @@ if ( localStorage["ncr_checkbox_google"] === undefined ){
 if ( localStorage["ncr_checkbox_blogspot"] === undefined ){
     localStorage["ncr_checkbox_blogspot"] = "true";
 }
+if ( localStorage["ncr_checkbox_icon"] === undefined ){
+    localStorage["ncr_checkbox_icon"] = "true";
+}
 if ( localStorage["ncr_whitelist_1"] === undefined ){
     localStorage["ncr_whitelist_1"] = "";
 }
@@ -191,7 +194,7 @@ function urlCheck(tabId, changeInfo, tab) {
     }
 
     // add NCR icon?
-    if ( tab.url.match(ncrComRegExp) ){                                                                                                     // if the url is on ncr format ...
+    if ( tab.url.match(ncrComRegExp) && localStorage["ncr_checkbox_icon"] === "true" ){                                                     // if the url is on ncr format and user wants the icon displayed (ncr-19) ...
         debug("show page action for URL : " + tab.url, changeInfo.status);
         chrome.pageAction.show(tabId);                                                                                                      // show the page action (the NCR icon)
     }
