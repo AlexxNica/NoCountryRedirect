@@ -4,8 +4,7 @@
 // started: 2012.08.13
 // note:    see revisions.txt for changelog
 //
-// - MORE INFORMATION BELOW -
-// -- miscellaneous test URLs (test all these URLs before every new release):
+// -- miscellaneous test URLs to run through before each new release:
 //  https://google.com
 //  http://www.google.es/url?sa=t&rct=j&q=&esrc=s&source=web&cd=4&ved=0CH4QFjAD&url=http%3A%2F%2Fwww.chronicles.no%2F2012%2F07%2Ftop-10-alternatives-to-gmail.html&ei=6KcyUI-wEcS5hAe9hIC4Aw&usg=AFQjCNFllV5QgNfwGHT6cwN8a0N2Ze07vQ&sig2=EKq3lPaLL1d4DosFQVJodw
 //  http://www.google.no/imgres?start=97&hl=en&client=firefox-a&hs=zxc&sa=X&rls=org.mozilla:en-US:official&biw=1280&bih=620&tbm=isch&prmd=imvns&tbnid=47Cjnrli_pYG2M:&imgrefurl=http://www.chronicles.no/2012/07/mont-blanc-10km-2012.html&docid=wRsjDboEn1XGRM&imgurl=http://3.bp.blogspot.com/-JUQP0mJaBl8/T_CSCtBgiNI/AAAAAAAACyM/Qi7xrBEtrSA/s1600/k009.png&w=983&h=650&ei=X2AwUP2NLOXe4QT-64CADQ&zoom=1&iact=hc&vpx=476&vpy=129&dur=4294&hovh=182&hovw=276&tx=174&ty=115&sig=103807963143718040267&page=5&tbnh=124&tbnw=170&ndsp=27&ved=1t:429,r:16,s:97,i:56
@@ -26,13 +25,12 @@
 //  https://www.google.no/maps?source=tldsi&hl=en&hl=en
 //  http://books.google.no/
 //  https://www.google.com/flights
+//  https://www.google.com/flights/
+//  https://www.google.com/flights/#
+//  https://www.google.no/flights/#search;f=OSL;t=MLA;d=2016-05-21;r=2016-05-25;md=540
 //
 //  should NOT redirect:
 //  https://www.google.no/accounts/Logout2?hl=en-GB&service=mail&ile=1&ils=s.NO&ilc=5&continue=https%3A%2F%2Faccounts.google.com%2FServiceLogin%3Fservice%3Dmail%26passive%3Dtrue%26rm%3Dfalse%26continue%3Dhttps%3A%2F%2Fmail.google.com%2Fmail%2F%26ss%3D1%26scc%3D1%26ltmpl%3Ddefault%26ltmplcache%3D2%26hl%3Den-GB&zx=-644258560
-//
-// -- nifty things to remember:
-//  debug("tab.url = " + tab.url);      // alternative: encodeURIComponent(tab.url);
-//  debug("tab.title = " + tab.title);  // alternative: encodeURIComponent(tab.title)
 // -----------------------------------------------------------------
 
 // config variables
@@ -41,9 +39,7 @@ var number_of_milliseconds_before_reset = 5000;                                 
 var tab_status_to_work_with             = "loading";                                                                                        // tab status is either 'undefined', 'loading' or 'complete'
 
 
-// -----
-// simple function that prints debugging messages
-// -----
+// prints debugging messages
 function debug(message, status){
     var doDebug = false;                                                                                                                    // if 'true' then print message, if 'false' do not
 
@@ -111,9 +107,7 @@ urlsToCheck[0]          = "google";
 urlsToCheck[1]          = "blogspot";
 
 
-// -----
 // main function that checks URLs, and NCR'ifies those URLs who are to be NCR'ified
-// -----
 function urlCheck(tabId, changeInfo, tab) {
     debug("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -", changeInfo.status);
     debug("tabId : " + tabId, changeInfo.status);
@@ -177,7 +171,7 @@ function urlCheck(tabId, changeInfo, tab) {
     }
 
     // if there are more than x seconds since stored timestamp, we can assume it is the user changing the url (typing, clicking a link etc.)
-    // and hence we delete stored data for this tab, and start checking "over again"
+    // and hence we delete stored data for this tab, and start checking once again
     if ( localStorage["ncr_tab" + tab.id + "_timestamp"] < Date.now() - number_of_milliseconds_before_reset ){
         debug("deleting stored tab data, due to time delay");
         localStorage["ncr_tab" + tab.id + "_timestamp"] = Date.now();                                                                       // reset timestamp
@@ -206,10 +200,8 @@ function urlCheck(tabId, changeInfo, tab) {
 
     debug("urlCheck(\""+tab.url+"\")", changeInfo.status);
 
-    // -----
     // we only want to process with the URL as long at is not an already .com URL
     // and if it is not a country specific google logout link
-    // -----
     if ( !(tab.url.match(ncrComRegExp)) && !(tab.url.match(googleLogoutRegExp)) && !(tab.url.match(bloggerBareDomain)) && !(tab.url.match(mapsTldRedirect)) ){
         for(i = 0; i < regExpUrlsToCheck.length; i++) {                                                                                     // loop through all URLs to check
             debug("regExpUrlsToCheck["+i+"] = " + regExpUrlsToCheck[i], changeInfo.status);
@@ -224,12 +216,17 @@ function urlCheck(tabId, changeInfo, tab) {
                     if ( newUrl.match(googleRegExp) && !newUrl.match("books.") ){
                         debug("google url - ncr-able url", changeInfo.status);
                         newUrl = newUrl.replace(tldCcRegexp, ".com/ncr");                                                                   // if nothing is after "google.com/" and it is possible to add "/ncr" to the domain
-                    } else {
-                        debug("google url - com-able url", changeInfo.status);
-                        newUrl = newUrl.replace(tldCcRegexp, ".com/");                                                                      // if URL is longer, like "google.com/?hl=en&...."
-
+                    } else {                                                                                                                // if URL is longer, like "google.com/?hl=en&...."
+                        debug("google url - com-able url", changeInfo.status);                                                              // in these cases we can just change to .com (/ncr not needed)
                         if ( newUrl.match(googleFlightsRegExp) ){                                                                           // special case for google flights (ncr-16)
-                            newUrl = newUrl + "?gl=US";
+                            newUrl = newUrl.replace(tldCcRegexp, ".com/");
+                            if ( newUrl.match("flights/#") ){                                                                               // longer flights urls (ncr-21)
+                                newUrl = newUrl.replace("flights/#", "flights/?gl=US#");
+                            } else {                                                                                                        // in this case we have a bare flight url (eg. "google.no/flights")
+                                newUrl = newUrl + "?gl=US";
+                            }
+                        } else {
+                            newUrl = newUrl.replace(tldCcRegexp, ".com/");
                         }
                     }
 
@@ -285,9 +282,7 @@ function urlCheck(tabId, changeInfo, tab) {
 }
 
 
-// -----
 // delete local storage related to the tabs that are closed
-// -----
 function localStorageCleanup(tabId, removeIfo) {
     for (i = 1; i <= number_of_redirects_before_exit; i=i+1){
         localStorage.removeItem("ncr_tab" + tabId +  "_url_" + i);
@@ -298,13 +293,10 @@ function localStorageCleanup(tabId, removeIfo) {
 }
 
 
-// -----
 // listen to any tab change, please note that this will be trigged several times on one url change, or tab reload.
 // documentation: https://developer.chrome.com/extensions/tabs
-// -----
 chrome.tabs.onUpdated.addListener(urlCheck);
 
-// -----
+
 // add listener when removing a tab
-// -----
 chrome.tabs.onRemoved.addListener(localStorageCleanup);

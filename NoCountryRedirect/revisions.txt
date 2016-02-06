@@ -17,6 +17,7 @@ https://github.com/klevstul/NoCountryRedirect
 
 
 *** REVISION HISTORY ***
+// 2016.02.06 : 1.2.1602 : frode klevstul : fixed google flights bug (NCR-21)
 // 2016.01.28 : 1.1.1601 : frode klevstul : added option to disable ncr icon in address bar (NCR-19)
 // 2015.12.02 : 1.0.1512 : frode klevstul : increased whitelist domains from three to 10 (NCR-15)
 // 2015.12.02 : 1.0.1512 : frode klevstul : added support for google flights (NCR-16)

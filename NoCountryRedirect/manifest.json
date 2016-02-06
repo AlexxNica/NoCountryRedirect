@@ -1,6 +1,6 @@
 {
       "name":                       "NoCountryRedirect (NCR)"
-    , "version":                    "1.1.1601"
+    , "version":                    "1.2.1602"
     , "description":                "Makes sure you stay on google.com and blogspot.com by automatically adding 'no country redirect' ('/ncr') to those URLs."
     , "background": {
         "scripts":                  ["background.js"]
