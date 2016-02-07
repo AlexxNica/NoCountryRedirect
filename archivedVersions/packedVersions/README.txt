@@ -1,1 +1,0 @@
-"code" in norwegian for the eoc
