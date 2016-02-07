@@ -53,7 +53,7 @@ function debug(message, status){
 
 // printing some debugging info, doing some declarations and initialisations of some variables
 debug("NoCountryRedirect - background.js", tab_status_to_work_with);                                                                        // Hello, World!
-debug("NCRify options : [google=" + localStorage["ncr_checkbox_google"] + " | blogspot=" + localStorage["ncr_checkbox_blogspot"] + "]", tab_status_to_work_with);
+debug("NCRify options : [google=" + localStorage["ncr_checkbox_google"] + " | blogspot=" + localStorage["ncr_checkbox_blogspot"] + " | preferredTld=" + localStorage["ncr_local_tld"] + "]", tab_status_to_work_with);
 
 // initialises local storage for user inputs, in case they are undefined
 if ( localStorage["ncr_checkbox_google"] === undefined ){
@@ -61,6 +61,9 @@ if ( localStorage["ncr_checkbox_google"] === undefined ){
 }
 if ( localStorage["ncr_checkbox_blogspot"] === undefined ){
     localStorage["ncr_checkbox_blogspot"] = "true";
+}
+if ( localStorage["ncr_local_tld"] === undefined ){
+    localStorage["ncr_local_tld"] = "is";
 }
 if ( localStorage["ncr_checkbox_icon"] === undefined ){
     localStorage["ncr_checkbox_icon"] = "true";
@@ -116,14 +119,15 @@ function urlCheck(tabId, changeInfo, tab) {
 
     // declarations
     var newUrl;
-    var tldCcRegexp         = /\.\w{2,3}(\.\w{2,3})?\//;                                                                                    // regular expression that represents a country specific tld plus a slash (like '.jp/' or '.no/' or '.co.uk') - note that all URLs given by tab.url will end with a slash.
-    var googleRegExp        = new RegExp("^http(s)?://(books.|maps.|www.)?google.\\w{2,3}(.\\w{2,3})?/$", "i");
-    var ncrComRegExp        = new RegExp("^http(s)?://([a-z0-9\\-]{1,40}.)?([a-z0-9\\-]{1,40}.)?(google|blogspot).com(/ncr)?/", "i");
-    var googleLogoutRegExp  = new RegExp("^http(s)?://(www.)?google.\\w{2,3}(.\\w{2,3})?/accounts/Logout");
-    var googleFlightsRegExp = new RegExp("^http(s)?://(www.)?google.\\w{2,3}(.\\w{2,3})?/flights");
-    var chromeExtRegExp     = new RegExp("^chrome");
-    var bloggerBareDomain   = new RegExp("^http(s)?://(www.)?blogspot.\\w{2,3}");
-    var mapsTldRedirect     = new RegExp("^http(s)?://(www.)?google.\\w{2,3}(.\\w{2,3})?/maps\\?");                                         // endless loops created by jumping to "https://www.google.com/maps?source=tldsi&hl=en" (NCR-13)
+    var tldCcRegexp             = /\.\w{2,3}(\.\w{2,3})?\//;                                                                                    // regular expression that represents a country specific tld plus a slash (like '.jp/' or '.no/' or '.co.uk') - note that all URLs given by tab.url will end with a slash.
+    var googleRegExp            = new RegExp("^http(s)?://(books.|maps.|www.)?google.\\w{2,3}(.\\w{2,3})?/$", "i");
+    var ncrComRegExp            = new RegExp("^http(s)?://([a-z0-9\\-]{1,40}.)?([a-z0-9\\-]{1,40}.)?(google|blogspot).com(/ncr)?/", "i");
+    var googleLogoutRegExp      = new RegExp("^http(s)?://(www.)?google.\\w{2,3}(.\\w{2,3})?/accounts/Logout");
+    var googleFlightsRegExp     = new RegExp("^http(s)?://(www.)?google.\\w{2,3}(.\\w{2,3})?/flights");
+    var chromeExtRegExp         = new RegExp("^chrome");
+    var bloggerBareDomainRegExp = new RegExp("^http(s)?://(www.)?blogspot.\\w{2,3}");
+    var mapsTldRedirectRegExp   = new RegExp("^http(s)?://(www.)?google.\\w{2,3}(.\\w{2,3})?/maps\\?");                                         // endless loops created by jumping to "https://www.google.com/maps?source=tldsi&hl=en" (NCR-13)
+    var ncrDisabledRegExp       = new RegExp("ncr_disabled");
 
     var i;
     var checkGoogle;
@@ -132,7 +136,7 @@ function urlCheck(tabId, changeInfo, tab) {
     // ----- ---------------------------------------------------------------------------------------------
     // misc checks which in certain cases will stop the extension (return without doing anything)
     // -----
-    // checks to avoid all the code being run every time the "onUpdated" event is triggered, which is more often than just reloads
+    // check to avoid all the code being run every time the "onUpdated" event is triggered, which is more often than just reloads
     // changeInfo is either 'undefined', 'loading' or 'complete'
     if (changeInfo.status !== tab_status_to_work_with){
         debug("STOP : changeInfo.status differs to '"+tab_status_to_work_with+"'", changeInfo.status);
@@ -142,6 +146,12 @@ function urlCheck(tabId, changeInfo, tab) {
     // stop the extension if the tab is a chrome page (like new tab, or settings page), instead of a normal web page
     if ( tab.url.match(chromeExtRegExp) ){
         debug("STOP : we have a chrome page", changeInfo.status);
+        return;
+    }
+
+    // stop the extension if the url matches a ncr disabled tag
+    if ( tab.url.match(ncrDisabledRegExp) ){
+        debug("STOP : url contains ncr disable tag", changeInfo.status);
         return;
     }
 
@@ -187,7 +197,7 @@ function urlCheck(tabId, changeInfo, tab) {
         return;
     }
 
-    // add NCR icon?
+    // add the NCR icon?
     if ( tab.url.match(ncrComRegExp) && localStorage["ncr_checkbox_icon"] === "true" ){                                                     // if the url is on ncr format and user wants the icon displayed (ncr-19) ...
         debug("show page action for URL : " + tab.url, changeInfo.status);
         chrome.pageAction.show(tabId);                                                                                                      // show the page action (the NCR icon)
@@ -202,7 +212,7 @@ function urlCheck(tabId, changeInfo, tab) {
 
     // we only want to process with the URL as long at is not an already .com URL
     // and if it is not a country specific google logout link
-    if ( !(tab.url.match(ncrComRegExp)) && !(tab.url.match(googleLogoutRegExp)) && !(tab.url.match(bloggerBareDomain)) && !(tab.url.match(mapsTldRedirect)) ){
+    if ( !(tab.url.match(ncrComRegExp)) && !(tab.url.match(googleLogoutRegExp)) && !(tab.url.match(bloggerBareDomainRegExp)) && !(tab.url.match(mapsTldRedirectRegExp)) ){
         for(i = 0; i < regExpUrlsToCheck.length; i++) {                                                                                     // loop through all URLs to check
             debug("regExpUrlsToCheck["+i+"] = " + regExpUrlsToCheck[i], changeInfo.status);
 

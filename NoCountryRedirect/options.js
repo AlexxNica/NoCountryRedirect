@@ -24,6 +24,7 @@ function restoreOptions(){
 
     var ncr_checkbox_google         = document.getElementById("ncr_checkbox_google");
     var ncr_checkbox_blogspot       = document.getElementById("ncr_checkbox_blogspot");
+    var ncr_local_tld           = document.getElementById("ncr_local_tld");
     var ncr_checkbox_icon           = document.getElementById("ncr_checkbox_icon");
     var ncr_whitelist_1             = document.getElementById("ncr_whitelist_1");
     var ncr_whitelist_2             = document.getElementById("ncr_whitelist_2");
@@ -38,6 +39,7 @@ function restoreOptions(){
 
     ncr_checkbox_google.checked     = (localStorage["ncr_checkbox_google"] === "true");
     ncr_checkbox_blogspot.checked   = (localStorage["ncr_checkbox_blogspot"] === "true");
+    ncr_local_tld.value         = localStorage["ncr_local_tld"];
     ncr_checkbox_icon.checked       = (localStorage["ncr_checkbox_icon"] === "true");
     ncr_whitelist_1.value           = localStorage["ncr_whitelist_1"]
     ncr_whitelist_2.value           = localStorage["ncr_whitelist_2"]
@@ -64,6 +66,7 @@ function clickSave(){
 
     var ncr_checkbox_google                 = document.getElementById("ncr_checkbox_google");
     var ncr_checkbox_blogspot               = document.getElementById("ncr_checkbox_blogspot");
+    var ncr_local_tld                       = document.getElementById("ncr_local_tld");
     var ncr_checkbox_icon                   = document.getElementById("ncr_checkbox_icon");
     var ncr_whitelist_1                     = document.getElementById("ncr_whitelist_1");
     var ncr_whitelist_2                     = document.getElementById("ncr_whitelist_2");
@@ -78,20 +81,22 @@ function clickSave(){
 
     localStorage["ncr_checkbox_google"]     = ncr_checkbox_google.checked;
     localStorage["ncr_checkbox_blogspot"]   = ncr_checkbox_blogspot.checked;
+    localStorage["ncr_local_tld"]           = ncr_local_tld.value.replace(/ /g,'').replace(/^\.+/g,'');
     localStorage["ncr_checkbox_icon"]       = ncr_checkbox_icon.checked;
-    localStorage["ncr_whitelist_1"]         = ncr_whitelist_1.value;
-    localStorage["ncr_whitelist_2"]         = ncr_whitelist_2.value;
-    localStorage["ncr_whitelist_3"]         = ncr_whitelist_3.value;
-    localStorage["ncr_whitelist_4"]         = ncr_whitelist_4.value;
-    localStorage["ncr_whitelist_5"]         = ncr_whitelist_5.value;
-    localStorage["ncr_whitelist_6"]         = ncr_whitelist_6.value;
-    localStorage["ncr_whitelist_7"]         = ncr_whitelist_7.value;
-    localStorage["ncr_whitelist_8"]         = ncr_whitelist_8.value;
-    localStorage["ncr_whitelist_9"]         = ncr_whitelist_9.value;
-    localStorage["ncr_whitelist_10"]        = ncr_whitelist_10.value;
+    localStorage["ncr_whitelist_1"]         = ncr_whitelist_1.value.replace(/ /g,'');
+    localStorage["ncr_whitelist_2"]         = ncr_whitelist_2.value.replace(/ /g,'');
+    localStorage["ncr_whitelist_3"]         = ncr_whitelist_3.value.replace(/ /g,'');
+    localStorage["ncr_whitelist_4"]         = ncr_whitelist_4.value.replace(/ /g,'');
+    localStorage["ncr_whitelist_5"]         = ncr_whitelist_5.value.replace(/ /g,'');
+    localStorage["ncr_whitelist_6"]         = ncr_whitelist_6.value.replace(/ /g,'');
+    localStorage["ncr_whitelist_7"]         = ncr_whitelist_7.value.replace(/ /g,'');
+    localStorage["ncr_whitelist_8"]         = ncr_whitelist_8.value.replace(/ /g,'');
+    localStorage["ncr_whitelist_9"]         = ncr_whitelist_9.value.replace(/ /g,'');
+    localStorage["ncr_whitelist_10"]        = ncr_whitelist_10.value.replace(/ /g,'');
 
     debug("ncr_checkbox_google = " + localStorage["ncr_checkbox_google"] );
     debug("ncr_checkbox_blogspot = " + localStorage["ncr_checkbox_blogspot"] );
+    debug("ncr_local_tld = " + localStorage["ncr_local_tld"] );
     debug("ncr_checkbox_icon = " + localStorage["ncr_checkbox_icon"] );
     debug("ncr_whitelist_1 = " + localStorage["ncr_whitelist_1"] );
     debug("ncr_whitelist_2 = " + localStorage["ncr_whitelist_2"] );
@@ -144,6 +149,9 @@ window.addEventListener("load", function()
 
     document.getElementById("ncr_checkbox_blogspot")
         .addEventListener("click", needToSave, false);
+
+    document.getElementById("ncr_local_tld")
+            .addEventListener("click", needToSave, false);
 
     document.getElementById("ncr_checkbox_icon")
         .addEventListener("click", needToSave, false);
