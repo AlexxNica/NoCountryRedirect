@@ -9,7 +9,7 @@
 // handling click on local mode link
 // -----
 function clickNoNcr(event) {
-    console.log("clickNoNcr()");
+    //console.log("clickNoNcr()");
 
     // get the url of the current tab
     chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
@@ -36,7 +36,7 @@ function clickNoNcr(event) {
 // handling click on incognito mode link
 // -----
 function clickNoNcrIncognito(event) {
-    console.log("clickNoNcrIncognito()");
+    //console.log("clickNoNcrIncognito()");
 
     chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
       var newUrl = tabs[0].url;
