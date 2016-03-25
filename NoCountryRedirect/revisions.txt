@@ -18,7 +18,7 @@ The source code for this extension can be viewed at
 https://github.com/klevstul/NoCountryRedirect
 
 *** REVISION HISTORY ***
-// 2016.03.11 : 1.3.1603 : frode klevstul : removed option to disable ncr icon - from chrome v49 this is no longer possible (NCR-27)
+// 2016.03.11 : 1.3.1603 : frode klevstul : removed option to disable ncr icon as this feature was removed with chrome (NCR-27)
 // 2016.02.06 : 1.2.1602 : frode klevstul : added options for opening links in local and incognito mode (NCR-14)
 // 2016.02.06 : 1.2.1602 : frode klevstul : fixed google flights bug (NCR-21)
 // 2016.01.28 : 1.1.1601 : frode klevstul : added option to disable ncr icon in address bar (NCR-19)
