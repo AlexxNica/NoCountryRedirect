@@ -169,6 +169,24 @@
 
         <div class="row">
             <div class="panel panel-default">
+                <div class="panel-heading">Avoiding google search redirects</div>
+                <div class="panel-body">
+                    <p>Chrome users of this extension might notice that they'll get redirected a couple of times, when searching using google.com as search the search engine.
+                    If google.com is your default search engine, the google.com will redirect you to a country specific page, then this extension will redirect you back to
+                    google.com. You can update your default search engine to encrypted.google.com, for avoiding this. Below is a description.</p>
+                    <p>1. Right click in the Chrome address bar.</p>
+                    <p>2. Chose the "Edit search engines..." option</p>
+                    <img style="border:1px dotted #777777" src="searchEngine1.jpg">
+                    <p>3. Edit your default search engine, and set the search URL to:</p>
+                    <p><code>https://encrypted.google.com/search?hl=en&q=%s</code></p>
+                    <img style="border:1px dotted #777777" src="searchEngine2.jpg">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="panel panel-default">
                 <div class="panel-heading">Local storage</div>
                 <div class="panel-body">
                     <p>Intruduced in version 0.7.1409 was code for preventing
