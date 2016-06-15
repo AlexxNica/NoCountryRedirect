@@ -25,7 +25,6 @@ function restoreOptions(){
     var ncr_checkbox_google         = document.getElementById("ncr_checkbox_google");
     var ncr_checkbox_blogspot       = document.getElementById("ncr_checkbox_blogspot");
     var ncr_local_tld               = document.getElementById("ncr_local_tld");
-//    var ncr_checkbox_icon           = document.getElementById("ncr_checkbox_icon");
     var ncr_whitelist_1             = document.getElementById("ncr_whitelist_1");
     var ncr_whitelist_2             = document.getElementById("ncr_whitelist_2");
     var ncr_whitelist_3             = document.getElementById("ncr_whitelist_3");
@@ -40,7 +39,6 @@ function restoreOptions(){
     ncr_checkbox_google.checked     = (localStorage["ncr_checkbox_google"] === "true");
     ncr_checkbox_blogspot.checked   = (localStorage["ncr_checkbox_blogspot"] === "true");
     ncr_local_tld.value             = localStorage["ncr_local_tld"];
-//    ncr_checkbox_icon.checked       = (localStorage["ncr_checkbox_icon"] === "true");
     ncr_whitelist_1.value           = localStorage["ncr_whitelist_1"]
     ncr_whitelist_2.value           = localStorage["ncr_whitelist_2"]
     ncr_whitelist_3.value           = localStorage["ncr_whitelist_3"]
@@ -67,7 +65,6 @@ function clickSave(){
     var ncr_checkbox_google                 = document.getElementById("ncr_checkbox_google");
     var ncr_checkbox_blogspot               = document.getElementById("ncr_checkbox_blogspot");
     var ncr_local_tld                       = document.getElementById("ncr_local_tld");
-//    var ncr_checkbox_icon                   = document.getElementById("ncr_checkbox_icon");
     var ncr_whitelist_1                     = document.getElementById("ncr_whitelist_1");
     var ncr_whitelist_2                     = document.getElementById("ncr_whitelist_2");
     var ncr_whitelist_3                     = document.getElementById("ncr_whitelist_3");
@@ -82,7 +79,6 @@ function clickSave(){
     localStorage["ncr_checkbox_google"]     = ncr_checkbox_google.checked;
     localStorage["ncr_checkbox_blogspot"]   = ncr_checkbox_blogspot.checked;
     localStorage["ncr_local_tld"]           = ncr_local_tld.value.replace(/ /g,'').replace(/^\.+/g,'');
-//    localStorage["ncr_checkbox_icon"]       = ncr_checkbox_icon.checked;
     localStorage["ncr_whitelist_1"]         = ncr_whitelist_1.value.replace(/ /g,'');
     localStorage["ncr_whitelist_2"]         = ncr_whitelist_2.value.replace(/ /g,'');
     localStorage["ncr_whitelist_3"]         = ncr_whitelist_3.value.replace(/ /g,'');
@@ -97,7 +93,6 @@ function clickSave(){
     debug("ncr_checkbox_google = " + localStorage["ncr_checkbox_google"] );
     debug("ncr_checkbox_blogspot = " + localStorage["ncr_checkbox_blogspot"] );
     debug("ncr_local_tld = " + localStorage["ncr_local_tld"] );
-//    debug("ncr_checkbox_icon = " + localStorage["ncr_checkbox_icon"] );
     debug("ncr_whitelist_1 = " + localStorage["ncr_whitelist_1"] );
     debug("ncr_whitelist_2 = " + localStorage["ncr_whitelist_2"] );
     debug("ncr_whitelist_3 = " + localStorage["ncr_whitelist_3"] );
@@ -152,9 +147,6 @@ window.addEventListener("load", function()
 
     document.getElementById("ncr_local_tld")
             .addEventListener("click", needToSave, false);
-
-//    document.getElementById("ncr_checkbox_icon")
-//        .addEventListener("click", needToSave, false);
 
     document.getElementById("ncr_whitelist_1")
         .addEventListener("change", needToSave, false);

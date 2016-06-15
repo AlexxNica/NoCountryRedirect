@@ -17,7 +17,22 @@ https://myaccount.google.com/preferences?pli=1#localization
 The source code for this extension can be viewed at
 https://github.com/klevstul/NoCountryRedirect
 
+
+
+*** ISSUE TRACKING ****
+Current issues are located at:
+https://github.com/klevstul/NoCountryRedirect/issues
+
+Issues related version prior to 1.4 (on the NCR-# format) are found at:
+https://klevstul.myjetbrains.com/youtrack/issues?q=project%3A+NoCountryRedirect
+
+
+
 *** REVISION HISTORY ***
+// 2016.06.15 : 1.4.1606 : frode klevstul : improved extension as a result of chrome ui change done in version 49 (#3)
+// 2016.06.15 : 1.4.1606 : frode klevstul : investigated permission change from "tabs" to "activeTab" - not possible (#4)
+// 2016.06.15 : 1.4.1606 : frode klevstul : added end user info about encrypted.google.com for avoiding redirects (#8)
+// 2016.06.15 : 1.4.1606 : frode klevstul : added end user info about our data policy (we store or use nothing) (#7)
 // 2016.03.11 : 1.3.1603 : frode klevstul : removed option to disable ncr icon as this feature was removed with chrome (NCR-27)
 // 2016.02.06 : 1.2.1602 : frode klevstul : added options for opening links in local and incognito mode (NCR-14)
 // 2016.02.06 : 1.2.1602 : frode klevstul : fixed google flights bug (NCR-21)

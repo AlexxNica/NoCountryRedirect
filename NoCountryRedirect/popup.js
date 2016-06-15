@@ -67,4 +67,17 @@ document.addEventListener('DOMContentLoaded', function () {
     // set correct tld in popup window
     preferredTld = document.getElementById("preferredTld");
     preferredTld.innerHTML = localStorage["ncr_local_tld"];
+
+    // display extension status on the popup page
+    ncrStatus = document.getElementById("ncrStatus");
+    ncrStatus.innerHTML = localStorage["ncr_status"];
+
+    // display warning message, related local mode, if extension is enabled
+    warningNotActive = document.getElementById("warningNotActive");
+    if (localStorage["ncr_status"] === "active") {
+        warningNotActive.innerHTML = 'A local version might not work, as many Google services are only available using the .com domain. Adjust in the <a href="options.html" target="_blank">"Local TLD"</a> setting.';
+    } else {
+        warningNotActive.innerHTML = "Please be aware that most likely opening a local version of current page won't work. This as the current URL is not recognised as a NCR supported URL.";
+    }
+
 });

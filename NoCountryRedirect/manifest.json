@@ -1,14 +1,14 @@
 {
       "name":                       "NoCountryRedirect (NCR)"
     , "version":                    "1.3.1603"
-    , "description":                "Makes sure you stay on google.com and blogspot.com by automatically adding 'no country redirect' ('/ncr') to those URLs."
+    , "description":                "Makes sure you stay on google.com and blogspot.com."
     , "background": {
         "scripts":                  ["background.js"]
       }
     , "page_action" :
         {
               "default_icon":       "ncr19x19.png"
-            , "default_title":      "URL is NCR'ified. Turn off NCR for given domain if you want to visit the country specific address (this is done on the extension's options page)."
+            , "default_title":      "NoCountryRedirect"
             , "default_popup":      "popup.html"
         }
     , "permissions":                ["tabs"]

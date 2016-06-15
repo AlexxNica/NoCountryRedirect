@@ -56,6 +56,9 @@ debug("NoCountryRedirect - background.js", tab_status_to_work_with);            
 debug("NCRify options : [google=" + localStorage["ncr_checkbox_google"] + " | blogspot=" + localStorage["ncr_checkbox_blogspot"] + " | preferredTld=" + localStorage["ncr_local_tld"] + "]", tab_status_to_work_with);
 
 // initialises local storage for user inputs, in case they are undefined
+if ( localStorage["ncr_status"] === undefined ){
+    localStorage["ncr_status"] = "inactive";
+}
 if ( localStorage["ncr_checkbox_google"] === undefined ){
     localStorage["ncr_checkbox_google"] = "true";
 }
@@ -64,9 +67,6 @@ if ( localStorage["ncr_checkbox_blogspot"] === undefined ){
 }
 if ( localStorage["ncr_local_tld"] === undefined ){
     localStorage["ncr_local_tld"] = "is";
-}
-if ( localStorage["ncr_checkbox_icon"] === undefined ){
-    localStorage["ncr_checkbox_icon"] = "true";
 }
 if ( localStorage["ncr_whitelist_1"] === undefined ){
     localStorage["ncr_whitelist_1"] = "";
@@ -119,14 +119,14 @@ function urlCheck(tabId, changeInfo, tab) {
 
     // declarations
     var newUrl;
-    var tldCcRegexp             = /\.\w{2,3}(\.\w{2,3})?\//;                                                                                    // regular expression that represents a country specific tld plus a slash (like '.jp/' or '.no/' or '.co.uk') - note that all URLs given by tab.url will end with a slash.
+    var tldCcRegexp             = /\.\w{2,3}(\.\w{2,3})?\//;                                                                                // regular expression that represents a country specific tld plus a slash (like '.jp/' or '.no/' or '.co.uk') - note that all URLs given by tab.url will end with a slash.
     var googleRegExp            = new RegExp("^http(s)?://(books.|maps.|www.)?google.\\w{2,3}(.\\w{2,3})?/$", "i");
     var ncrComRegExp            = new RegExp("^http(s)?://([a-z0-9\\-]{1,40}.)?([a-z0-9\\-]{1,40}.)?(google|blogspot).com(/ncr)?/", "i");
     var googleLogoutRegExp      = new RegExp("^http(s)?://(www.)?google.\\w{2,3}(.\\w{2,3})?/accounts/Logout");
     var googleFlightsRegExp     = new RegExp("^http(s)?://(www.)?google.\\w{2,3}(.\\w{2,3})?/flights");
     var chromeExtRegExp         = new RegExp("^chrome");
     var bloggerBareDomainRegExp = new RegExp("^http(s)?://(www.)?blogspot.\\w{2,3}");
-    var mapsTldRedirectRegExp   = new RegExp("^http(s)?://(www.)?google.\\w{2,3}(.\\w{2,3})?/maps\\?");                                         // endless loops created by jumping to "https://www.google.com/maps?source=tldsi&hl=en" (NCR-13)
+    var mapsTldRedirectRegExp   = new RegExp("^http(s)?://(www.)?google.\\w{2,3}(.\\w{2,3})?/maps\\?");                                     // endless loops created by jumping to "https://www.google.com/maps?source=tldsi&hl=en" (NCR-13)
     var ncrDisabledRegExp       = new RegExp("ncr_disabled");
 
     var i;
@@ -197,10 +197,20 @@ function urlCheck(tabId, changeInfo, tab) {
         return;
     }
 
-    // add the NCR icon?
-    if ( tab.url.match(ncrComRegExp) && localStorage["ncr_checkbox_icon"] === "true" ){                                                     // if the url is on ncr format and user wants the icon displayed (ncr-19) ...
-        debug("show page action for URL : " + tab.url, changeInfo.status);
-        chrome.pageAction.show(tabId);                                                                                                      // show the page action (the NCR icon)
+    // always show the page action, to have the options page enabled at all time. instead just manipulate the NCR icon to display an active or none-active state of the extension (see below)
+    chrome.pageAction.show(tabId);
+
+    // update NCR icon and title to show the status of the page (enabled or disabled)
+    if ( tab.url.match(ncrComRegExp) ){
+        debug("show active NCR for URL : " + tab.url, changeInfo.status);
+        localStorage["ncr_status"] = "active";
+        chrome.pageAction.setIcon({tabId: tab.id, path: 'ncr19x19.png'});
+        chrome.pageAction.setTitle({tabId: tab.id, title: "NCR is ON for current URL."});
+    } else {
+        debug("show inactive NCR for URL : " + tab.url, changeInfo.status);
+        localStorage["ncr_status"] = "inactive";
+        chrome.pageAction.setIcon({tabId: tab.id, path: 'ncr19x19_disabled.png'});
+        chrome.pageAction.setTitle({tabId: tab.id, title: "NCR is OFF for current URL."});
     }
 
     // get user inputs
