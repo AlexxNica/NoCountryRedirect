@@ -23,7 +23,7 @@ https://github.com/klevstul/NoCountryRedirect
 Current issues are located at:
 https://github.com/klevstul/NoCountryRedirect/issues
 
-Issues related version prior to 1.4 (on the NCR-# format) are found at:
+Issues related versions prior to 1.4 (on the NCR-# format) are found at:
 https://klevstul.myjetbrains.com/youtrack/issues?q=project%3A+NoCountryRedirect
 
 
