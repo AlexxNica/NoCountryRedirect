@@ -78,10 +78,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (localStorage["ncr_status"] === "active") {
         localMode.style.display = "table-row";
-        //localMode.style.visibility = "visible";
     } else {
         localMode.style.display = "none";
-        //localMode.style.visibility = "collapse";
     }
 
 });
