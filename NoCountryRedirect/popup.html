@@ -9,7 +9,7 @@
     author : Frode Klevstul : www.klevstul.com : ncrextension at klevstul dot com
 -->
 
-<body style="width: 500px; padding: 10px;">
+<body style="width: 400px; padding: 10px;">
     <div class="container">
 
         <div class="row">
@@ -20,35 +20,27 @@
         </div>
 
         <div class="row">
-            &nbsp;
-        </div>
-
-        <div class="row">
-            <div class="panel panel-default">
-                <div class="panel-heading">Local mode</div>
-                <div class="panel-body">
-                    <p><a id="noNcr">Open &quot;.<span id="preferredTld"></span>&quot; version of current page</a></p>
-                    <p id="warningNotActive"></p>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="panel panel-default">
-                <div class="panel-heading">Incognito mode</div>
-                <div class="panel-body">
-                    <a id="noNcrIncognito">Open current page in incognito mode</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="panel panel-default">
-                <div class="panel-heading">Options</div>
-                <div class="panel-body">
-                    <p><a href="options.html" target="_blank">NCR options</a></p>
-                </div>
-            </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 5%;">&nbsp;</th>
+                        <th>&nbsp;</th>
+                </thead>
+                <tbody>
+                    <tr data-toggle="tooltip" title="Open current page in a new incognito window.">
+                        <td><span class="text-danger">&#9631;</span></td>
+                        <td><a id="noNcrIncognito">Open current page in incognito mode</a></td>
+                    </tr>
+                    <tr id="localMode" data-toggle="tooltip" title="A local version might not work, as many Google services are only available using the .com domain. Adjust local domain under options.">
+                        <td><span class="text-primary">&#9626;</span></td>
+                        <td><a id="noNcr">Open local &quot;.<span id="preferredTld"></span>&quot; version of current page</a></td>
+                    </tr>
+                    <tr data-toggle="tooltip" title="Open the NCR options page.">
+                        <td><span class="text-success">&#9630;</span></td>
+                        <td><a href="options.html" target="_blank">NCR options</a></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
     </div>
