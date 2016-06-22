@@ -72,14 +72,21 @@ document.addEventListener('DOMContentLoaded', function () {
     ncrStatus = document.getElementById("ncrStatus");
     ncrStatus.innerHTML = localStorage["ncr_status"];
 
-    // display local mode, or not
-    localMode = document.getElementById("localMode");
 
+
+    // display local mode, or not - and present status icon
+    localMode = document.getElementById("localMode");
+    ncrStatusIcon = document.getElementById("ncrStatusIcon");
+    ncrStatusLine = document.getElementById("ncrStatusLine");
 
     if (localStorage["ncr_status"] === "active") {
         localMode.style.display = "table-row";
+        ncrStatusIcon.innerHTML = "&#9654;";
+        ncrStatusLine.style.color = "#33cc33";
     } else {
         localMode.style.display = "none";
+        ncrStatusIcon.innerHTML = "&#9632;";
+        ncrStatusLine.style.color = "#ff9999";
     }
 
 });

@@ -9,13 +9,13 @@
     author : Frode Klevstul : www.klevstul.com : ncrextension at klevstul dot com
 -->
 
-<body style="width: 400px; padding: 10px;">
+<body style="width: 260px; padding: 10px;">
     <div class="container">
 
         <div class="row">
             <div class="col-md-12">
                 <h4>NoCountryRedirect (NCR)</h4>
-                <h6><span id="ncrStatus"></span> for current page</h6>
+                <div id="ncrStatusLine"><span id="ncrStatusIcon"></span> <span id="ncrStatus"></span> for current page</div>
             </div>
         </div>
 
@@ -29,11 +29,11 @@
                 <tbody>
                     <tr data-toggle="tooltip" title="Open current page in a new incognito window.">
                         <td><span class="text-danger">&#9631;</span></td>
-                        <td><a id="noNcrIncognito">Open current page in incognito mode</a></td>
+                        <td><a id="noNcrIncognito">Open in incognito mode</a></td>
                     </tr>
                     <tr id="localMode" data-toggle="tooltip" title="A local version might not work, as many Google services are only available using the .com domain. Adjust local domain under options.">
                         <td><span class="text-primary">&#9626;</span></td>
-                        <td><a id="noNcr">Open local &quot;.<span id="preferredTld"></span>&quot; version of current page</a></td>
+                        <td><a id="noNcr">Open local &quot;.<span id="preferredTld"></span>&quot; version</a></td>
                     </tr>
                     <tr data-toggle="tooltip" title="Open the NCR options page.">
                         <td><span class="text-success">&#9630;</span></td>
