@@ -29,6 +29,10 @@ https://klevstul.myjetbrains.com/youtrack/issues?q=project%3A+NoCountryRedirect
 
 
 *** REVISION HISTORY ***
+// 2016.06.22 : 1.5.1606 : frode klevstul : fixed "save settings" button text bug
+// 2016.06.22 : 1.5.1606 : frode klevstul : upgraded bootstrap from v3.3.5 to v3.3.6
+// 2016.06.22 : 1.5.1606 : frode klevstul : improved popup menu
+// 2016.06.22 : 1.5.1606 : frode klevstul : misc minor text changes
 // 2016.06.15 : 1.4.1606 : frode klevstul : improved extension as a result of chrome ui change done in version 49 (#3)
 // 2016.06.15 : 1.4.1606 : frode klevstul : investigated permission change from "tabs" to "activeTab" - not possible (#4)
 // 2016.06.15 : 1.4.1606 : frode klevstul : added end user info about encrypted.google.com for avoiding redirects (#8)
