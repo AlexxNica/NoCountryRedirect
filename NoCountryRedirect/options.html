@@ -57,7 +57,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Local TLD</div>
                 <div class="panel-body">
-                    <p>Choose what <a href="https://en.wikipedia.org/wiki/List_of_Internet_top-level_domains" target="_blank">top level domain</a> you want to use for opening links in "local mode" (without "." in front):</p>
+                    <p>Specify your country specific <a href="https://en.wikipedia.org/wiki/List_of_Internet_top-level_domains" target="_blank">top level domain</a> for opening links in "local mode" (without "." in front):</p>
                 </div>
                 <div class="panel-body">
                     <input type="text" id="ncr_local_tld" name="ncr_local_tld" value="" style="width: 50px;" />
@@ -65,7 +65,13 @@
                 <div class="panel-body">
                     <p>
                         Example:<br/>
-                        If you set this value to "co.kr", you will be go to "google.co.kr" if opening a local version of the search page.
+                        If you set this value to "co.kr", you will be go to "google.co.kr" if opening a local version of the search page when in South Korea.<br/>
+                    </p>
+                    <p>
+                        Note:<br/>
+                        Local domain setting has to represent the country you are in. The reason being is that when
+                        you are in local mode, NCR is disabled. Hence Google will redirect you to your own country
+                        specific domain.
                     </p>
                 </div>
             </div>
