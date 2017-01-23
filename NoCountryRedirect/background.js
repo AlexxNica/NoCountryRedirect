@@ -207,12 +207,12 @@ function urlCheck(tabId, changeInfo, tab) {
         debug("show active NCR for URL : " + tab.url, changeInfo.status);
         localStorage["ncr_status"] = "active";
         chrome.pageAction.setIcon({tabId: tab.id, path: 'ncr19x19.png'});
-        chrome.pageAction.setTitle({tabId: tab.id, title: "NCR is ON for current URL"});
+        chrome.pageAction.setTitle({tabId: tab.id, title: "NCR is ON for current tab"});
     } else {
         debug("show inactive NCR for URL : " + tab.url, changeInfo.status);
         localStorage["ncr_status"] = "inactive";
         chrome.pageAction.setIcon({tabId: tab.id, path: 'ncr19x19_disabled.png'});
-        chrome.pageAction.setTitle({tabId: tab.id, title: "NCR is OFF for current URL"});
+        chrome.pageAction.setTitle({tabId: tab.id, title: "NCR is OFF for current tab"});
     }
 
     // get user inputs
