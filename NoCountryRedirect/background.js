@@ -28,6 +28,8 @@
 //  https://www.google.com/flights/
 //  https://www.google.com/flights/#
 //  https://www.google.no/flights/#search;f=OSL;t=MLA;d=2016-05-21;r=2016-05-25;md=540
+//  https://scholar.google.co.jp/
+//  https://scholar.google.com/
 //
 //  should NOT redirect:
 //  https://www.google.no/accounts/Logout2?hl=en-GB&service=mail&ile=1&ils=s.NO&ilc=5&continue=https%3A%2F%2Faccounts.google.com%2FServiceLogin%3Fservice%3Dmail%26passive%3Dtrue%26rm%3Dfalse%26continue%3Dhttps%3A%2F%2Fmail.google.com%2Fmail%2F%26ss%3D1%26scc%3D1%26ltmpl%3Ddefault%26ltmplcache%3D2%26hl%3Den-GB&zx=-644258560
@@ -100,9 +102,9 @@ if ( localStorage["ncr_whitelist_10"] === undefined ){
 }
 
 // build an array with regular expressions and URLs that are to be checked and NCR'ified if possible
-// note that "regExpUrlsToCheck[i]" must be for the same domain as "urlsToCheck[i]" (the same order)
+// note that "regExpUrlsToCheck[i]" must be for the same domain as "urlsToCheck[i]" (in the same order)
 var regExpUrlsToCheck   = new Array();
-regExpUrlsToCheck[0]    = new RegExp("^http(s)?://(books.|maps.|www.)?google.\\w{2,3}(.\\w{2,3})?/", "i");                                  // google domains
+regExpUrlsToCheck[0]    = new RegExp("^http(s)?://(books.|maps.|scholar.|www.)?google.\\w{2,3}(.\\w{2,3})?/", "i");                         // google domains
 regExpUrlsToCheck[1]    = new RegExp("^http(s)?://([a-z0-9\\-]{1,40}.)?([a-z0-9\\-]{1,40}.)?blogspot.\\w{2,3}(.\\w{2,3})?/", "i");          // blogspot domains (including domains on the format "http://www.etvanligliv.blogspot.no/")
 
 var urlsToCheck         = new Array();
@@ -120,7 +122,7 @@ function urlCheck(tabId, changeInfo, tab) {
     // declarations
     var newUrl;
     var tldCcRegexp             = /\.\w{2,3}(\.\w{2,3})?\//;                                                                                // regular expression that represents a country specific tld plus a slash (like '.jp/' or '.no/' or '.co.uk') - note that all URLs given by tab.url will end with a slash.
-    var googleRegExp            = new RegExp("^http(s)?://(books.|maps.|www.)?google.\\w{2,3}(.\\w{2,3})?/$", "i");
+    var googleRegExp            = new RegExp("^http(s)?://(books.|maps.|scholar.|www.)?google.\\w{2,3}(.\\w{2,3})?/$", "i");
     var ncrComRegExp            = new RegExp("^http(s)?://([a-z0-9\\-]{1,40}.)?([a-z0-9\\-]{1,40}.)?(google|blogspot).com(/ncr)?/", "i");
     var googleLogoutRegExp      = new RegExp("^http(s)?://(www.)?google.\\w{2,3}(.\\w{2,3})?/accounts/Logout");
     var googleFlightsRegExp     = new RegExp("^http(s)?://(www.)?google.\\w{2,3}(.\\w{2,3})?/flights");
