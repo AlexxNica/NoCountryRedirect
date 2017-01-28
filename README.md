@@ -1,4 +1,6 @@
-![NoCountryRedirect](https://github.com/klevstul/NoCountryRedirect/blob/master/NoCountryRedirect/ncr128x128.png "NoCountryRedirect") NoCountryRedirect
+![NoCountryRedirect](https://github.com/klevstul/NoCountryRedirect/blob/master/NoCountryRedirect/ncr128x128.png "NoCountryRedirect")
+
+NoCountryRedirect
 =================
 NoCountryRedirect is a Google Chrome extension that "Makes sure you stay on google.com and blogspot.com". This is mainly achieved by automatically adding 'no country redirect' ('/ncr') to the URLs.
 
@@ -19,12 +21,10 @@ Revisions
 Issues
 ------
 [![GitHub issues](https://img.shields.io/github/issues/klevstul/NoCountryRedirect.svg)](https://github.com/klevstul/NoCountryRedirect/issues)
-
 [![GitHub closed issues](https://img.shields.io/github/issues-closed/klevstul/NoCountryRedirect.svg)](https://github.com/klevstul/NoCountryRedirect/issues?q=is%3Aissue+is%3Aclosed)
 
-Last release
-------------
-[![GitHub release](https://img.shields.io/github/release/klevstul/NoCountryRedirect.svg)](https://github.com/klevstul/NoCountryRedirect/releases)
+Releases
+--------
 [![GitHub tag](https://img.shields.io/github/tag/klevstul/NoCountryRedirect.svg)](https://github.com/klevstul/NoCountryRedirect/tags)
 
 Licence
