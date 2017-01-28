@@ -23,8 +23,8 @@ Issues
 [![GitHub issues](https://img.shields.io/github/issues/klevstul/NoCountryRedirect.svg)](https://github.com/klevstul/NoCountryRedirect/issues)
 [![GitHub closed issues](https://img.shields.io/github/issues-closed/klevstul/NoCountryRedirect.svg)](https://github.com/klevstul/NoCountryRedirect/issues?q=is%3Aissue+is%3Aclosed)
 
-Releases
---------
+Last release
+------------
 [![GitHub tag](https://img.shields.io/github/tag/klevstul/NoCountryRedirect.svg)](https://github.com/klevstul/NoCountryRedirect/tags)
 
 Licence
