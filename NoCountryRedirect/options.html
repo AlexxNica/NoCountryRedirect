@@ -147,17 +147,35 @@
 
         <div class="row">
             <div class="panel panel-default">
-                <div class="panel-heading">Avoiding google search redirects</div>
+                <div class="panel-heading">Avoiding multiple redirects</div>
                 <div class="panel-body">
-                    <p>Chrome users of this extension might notice that they'll get redirected a couple of times, when searching using google.com as search the search engine.
-                    If google.com is your default search engine, the google.com will redirect you to a country specific page, then this extension will redirect you back to
-                    google.com. You can update your default search engine to encrypted.google.com, for avoiding this. Below is a description.</p>
-                    <p>1. Right click in the Chrome address bar.</p>
-                    <p>2. Chose the "Edit search engines..." option.</p>
-                    <img style="border:1px dotted #777777" src="searchEngine1.jpg">
-                    <p>3. Edit your default search engine, and set the search URL to:</p>
-                    <p><code>https://encrypted.google.com/search?hl=en&q=%s</code></p>
-                    <img style="border:1px dotted #777777" src="searchEngine2.jpg">
+                    <p>Users of this extension might experience multiple redirects doing Google searches.</p>
+                    <p>Use case:</p>
+                    <ul>
+                        <li>An omibox search (search in Chrome's address bar) redirects the user to google.com</li>
+                        <li>google.com redirects the user to country specific top level domain, like google.co.jp</li>
+                        <li>The NCR extension redirects the user back to google.com</li>
+                    </ul>
+                    <p>Below are a couple of workarounds for avoiding this annoyance.</p>
+                    <br>
+                    <h4>google.com/ncr</h4>
+                    <ul>
+                        <li>Go to <a href="https://google.com/ncr" target="_blank">google.com/ncr</a></li>
+                        <li>Close Chrome</li>
+                        <li>Launch Chrome again</li>
+                    </ul>
+                    <p>Source: <a href="https://googlesystem.blogspot.com/2013/07/change-chromes-search-engine-to.html" target="_blank">Google Operating System</a></p>
+                    <br>
+                    <h4>encrypted.google.com</h4>
+                    <p>Update your default search engine to <a href="https://encrypted.google.com" target="_blank">encrypted.google.com</a>.</p>
+                    <ul>
+                        <li>Right click in the Chrome address bar.</li>
+                        <li>Chose the "Edit search engines..." option.</li>
+                        <img style="border:1px dotted #777777" src="searchEngine1.jpg">
+                        <li>Edit your default search engine, and set the search URL to:</li>
+                        <p><code>https://encrypted.google.com/search?hl=en&q=%s</code></p>
+                        <img style="border:1px dotted #777777" src="searchEngine2.jpg">
+                    </ul>
                 </div>
             </div>
         </div>
