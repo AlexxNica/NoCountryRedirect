@@ -16,6 +16,16 @@ Revisions
 ---------
 [revisions.txt] (https://github.com/klevstul/NoCountryRedirect/blob/master/NoCountryRedirect/revisions.txt)
 
+Issues
+------
+[![GitHub issues](https://img.shields.io/github/issues/klevstul/NoCountryRedirect.svg)]()
+
+[![GitHub closed issues](https://img.shields.io/github/issues-closed/klevstul/NoCountryRedirect.svg)]()
+
+Last deployed version
+---------------------
+[![GitHub tag](https://img.shields.io/github/tag/klevstul/NoCountryRedirect.svg)]()
+
 Licence
 -------
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
