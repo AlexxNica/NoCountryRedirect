@@ -4,6 +4,12 @@ NoCountryRedirect is a Google Chrome extension that "Makes sure you stay on goog
 
 Download and installation
 -------------------------
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/d/ciboebddidackjicoeoiigdnbmchkdll.svg)]()
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/ciboebddidackjicoeoiigdnbmchkdll.svg)]()
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/nimelepbpejjlbmoobocpfnjhihnpked.svg)]()
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/stars/nimelepbpejjlbmoobocpfnjhihnpked.svg)]()
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/rating-count/nimelepbpejjlbmoobocpfnjhihnpked.svg)]()
+
 The Chrome extension can be downloaded and installed directly from the [Chrome webstore] (https://chrome.google.com/webstore/detail/nocountryredirect-ncr/ciboebddidackjicoeoiigdnbmchkdll).
 
 Revisions
