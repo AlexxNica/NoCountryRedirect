@@ -105,6 +105,14 @@ function clickSave(){
     debug("ncr_whitelist_10 = " + localStorage["ncr_whitelist_10"] );
 }
 
+// -----
+// when user clicks cancel...
+// -----
+function clickCancel(){
+    debug("clickCancel()");
+
+    location.reload();
+}
 
 // -----
 // sets a flag to inform saving is needed
@@ -180,6 +188,9 @@ window.addEventListener("load", function()
 
     document.getElementById("save")
         .addEventListener("click", clickSave, false);
+
+    document.getElementById("cancel")
+        .addEventListener("click", clickCancel, false);
 
     document.getElementById("clear_storage")
         .addEventListener("click", clearStorage, false);
