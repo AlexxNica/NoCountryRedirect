@@ -1,16 +1,17 @@
 THIS EXTENSION ONLY WORKS FOR BLOGSPOT.COM AND GOOGLE.COM, NO OTHER DOMAINS!
 
-This extension makes sure you'll stay on the .com pages for google.com and blogspot.com. This is done by adding the No Country Redirect (NCR) tag for those URLs. In other words it prevents you from automatically being redirected from google.com or blogspot.com to a country code top level domain (ccTLD) like 'google.jp', 'google.co.uk' or what have you got. The extension is an "unredirect solution", it completely stops or avoid redirects from google.com and blogspot.com. So there will be no more Google redirections if using this extension.
+This extension makes sure you'll stay on the .com pages for google.com and blogspot.com. This is mainly done by adding the No Country Redirect (NCR) tag for those URLs. In other words it prevents you from automatically being redirected from google.com or blogspot.com to a country code top level domain (ccTLD) like 'google.jp', 'google.co.uk' or what have you got. The extension is an "unredirect solution", it completely stops or avoid redirects from google.com and blogspot.com. So there will be no more Google redirections if using this extension.
 
 Some features:
 - You can disable / enable NCRifying domains in the extension's option page. So if you want to visit a country code top level domain, like google.jp or google.de, instead of google.com, you can disable NCR for google domains. The same goes for blogspot domains (new from version 0.6.1303).
 - You can open pages in local mode, and incognito mode, for quickly comparing results with and without using this extension (new from version 1.2.1602).
 - You can whitelist Google domains that you do not want to have "NCRified" (new from version 0.7.1409).
 
-Note that this extension do not change your language preferences to English. If you want to change the language settings for Google products please go to:
+A few things this extension don't do:
+- This extension do not change your language preferences to English. If you want to change the language settings for Google products please go to:
 https://myaccount.google.com/preferences?pli=1#localization
 (https://myaccount.google.com/preferences)
-
+- This extension do not alter location settings (geo location) in any way.
 
 
 *** SOURCE CODE ****
@@ -20,7 +21,7 @@ https://github.com/klevstul/NoCountryRedirect
 
 
 *** ISSUE TRACKING ****
-Current issues are located at:
+Issues are located at:
 https://github.com/klevstul/NoCountryRedirect/issues
 
 Issues related versions prior to 1.4 (on the NCR-# format) are found at:
