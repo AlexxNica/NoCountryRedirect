@@ -36,8 +36,13 @@ Licence
 Blog posts and articles
 -----------------------
 2017.01 : [chronicles.no - on the top list](http://www.chronicles.no/2017/01/ncr-on-top-list.html)
+
 2016.02 : [chronicles.no - boost from boobs](http://www.chronicles.no/2016/02/boost-from-boobs.html)
+
 2015.12 : [chronicles.no - old "home page"](http://www.chronicles.no/2015/12/nocountryredirect-ncr.html)
+
 2014.09 : [chronicles.no - NCR and the right to be forgotten](http://www.chronicles.no/2014/09/nocountryredirect-and-right-to-be.html)
+
 2013.08 : [technorms.com - Extension review](http://www.technorms.com/31957/block-blogger-from-redirecting-to-a-country-specific-url)
+
 2012.08 : [chronicles.no - release post](http://www.chronicles.no/2012/08/chrome-ncr-extension.html)
