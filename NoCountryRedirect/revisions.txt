@@ -29,6 +29,15 @@ https://klevstul.myjetbrains.com/youtrack/issues?q=project%3A+NoCountryRedirect
 
 
 *** REVISION HISTORY ***
+// 2017.01.29 : 1.6.1701 : frode klevstul : added support for google scholar (#16)
+// 2017.01.29 : 1.6.1701 : frode klevstul : improved information about "local mode" on options page
+// 2017.01.29 : 1.6.1701 : frode klevstul : upgraded bootstrap from v3.3.6 to v3.3.7
+// 2017.01.29 : 1.6.1701 : frode klevstul : added more information, on options page, for avoiding multiple redirects (#14)
+// 2017.01.29 : 1.6.1701 : frode klevstul : center aligning input data on options page
+// 2017.01.29 : 1.6.1701 : frode klevstul : added "cancel changes" button to options page
+// 2017.01.29 : 1.6.1701 : frode klevstul : updated footer link on options page
+// 2017.01.29 : 1.6.1701 : frode klevstul : added licence to the plugin (#19)
+// 2017.01.29 : 1.6.1701 : frode klevstul : updated readme page (#17)
 // 2016.06.22 : 1.5.1606 : frode klevstul : fixed "save settings" button text bug
 // 2016.06.22 : 1.5.1606 : frode klevstul : upgraded bootstrap from v3.3.5 to v3.3.6
 // 2016.06.22 : 1.5.1606 : frode klevstul : improved popup menu
