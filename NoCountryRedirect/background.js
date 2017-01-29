@@ -43,7 +43,7 @@ var tab_status_to_work_with             = "loading";                            
 
 // prints debugging messages
 function debug(message, status){
-    var doDebug = true;                                                                                                                    // if 'true' then print message, if 'false' do not
+    var doDebug = false;                                                                                                                    // if 'true' then print message, if 'false' do not
 
     if (doDebug){
         if (status === tab_status_to_work_with){                                                                                            // to minimise output when debugging, we can ignore printing for some tab statuses
