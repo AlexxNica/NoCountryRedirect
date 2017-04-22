@@ -12,11 +12,11 @@ Download and installation
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/stars/ciboebddidackjicoeoiigdnbmchkdll.svg)](https://chrome.google.com/webstore/detail/nocountryredirect-ncr/ciboebddidackjicoeoiigdnbmchkdll)
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/rating-count/ciboebddidackjicoeoiigdnbmchkdll.svg)](https://chrome.google.com/webstore/detail/nocountryredirect-ncr/ciboebddidackjicoeoiigdnbmchkdll)
 
-The Chrome extension can be downloaded and installed directly from the [Chrome webstore] (https://chrome.google.com/webstore/detail/nocountryredirect-ncr/ciboebddidackjicoeoiigdnbmchkdll).
+The Chrome extension can be downloaded and installed directly from the [Chrome webstore](https://chrome.google.com/webstore/detail/nocountryredirect-ncr/ciboebddidackjicoeoiigdnbmchkdll).
 
 Revisions
 ---------
-[revisions.txt] (https://github.com/klevstul/NoCountryRedirect/blob/master/NoCountryRedirect/revisions.txt)
+[revisions.txt](https://github.com/klevstul/NoCountryRedirect/blob/master/NoCountryRedirect/revisions.txt)
 
 Issues
 ------
